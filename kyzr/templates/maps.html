@@ -1,69 +1,54 @@
+<!DOCTYPE html>
 <html>
-<head>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script language="javascript" type="text/javascript">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Polylines</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+// This example creates a 2-pixel-wide red polyline showing
+// the path of William Kingsford Smith's first trans-Pacific flight between
+// Oakland, CA, and Brisbane, Australia.
 
-    var map;
-    var geocoder;
-    function InitializeMap() {
+function initialize() {
+  var mapOptions = {
+    zoom: 3,
+    center: new google.maps.LatLng(0, -180),
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
 
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
-        var myOptions =
-        {
-            zoom: 8,
-            center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true
-        };
-        map = new google.maps.Map(document.getElementById("map"), myOptions);
-    }
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
 
-    function FindLocaiton() {
-        geocoder = new google.maps.Geocoder();
-        InitializeMap();
+//  var flightPlanCoordinates = [
+//    new google.maps.LatLng(37.772323, -122.214897),
+//    new google.maps.LatLng(21.291982, -157.821856),
+//    new google.maps.LatLng(-18.142599, 178.431),
+//    new google.maps.LatLng(-27.46758, 153.027892)
+//  ];
+  var flightPath = new google.maps.Polyline({
+    path: flightPlanCoordinates,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
-        var address = document.getElementById("addressinput").value;
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
+  flightPath.setMap(map);
+}
 
-            }
-            else {
-                alert("Geocode was not successful for the following reason: " + status);
-            }
-        });
+google.maps.event.addDomListener(window, 'load', initialize);
 
-    }
-
-
-    function Button1_onclick() {
-        FindLocaiton();
-    }
-
-    window.onload = InitializeMap;
-
-</script>
-</head>
-<body>
-<h2>Gecoding Demo JavaScript: </h2>
-<table>
-<tr>
-<td>
-    <input id="addressinput" type="text" style="width: 447px" />   
-</td>
-<td>
-    <input id="Button1" type="button" value="Find" onclick="return Button1_onclick()" /></td>
-</tr>
-<tr>
-<td colspan ="2">
-<div id ="map" style="height: 253px" >
-</div>
-</td>
-</tr>
-</table>
-</body>
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
 </html>
