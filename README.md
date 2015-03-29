@@ -1,4 +1,4 @@
-![alt tag](https://raw.githubusercontent.com/byronwasti/Kyzr-Server/master/kyzr/kyzr/static/images/Logo1.svg)
+![alt tag](https://raw.githubusercontent.com/byronwasti/Kyzr-Server/master/kyzr/kyzr/static/images/TheKyzrProject.png)
 ===========
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Dogfalo/materialize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
