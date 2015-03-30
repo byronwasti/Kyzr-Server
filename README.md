@@ -2,10 +2,8 @@
 
 ---
 # Welcome to The Kyzr Project's Server Repo
----
 
 ##FAQ
-====
 
 ### What is The Kyzr Project?
 
