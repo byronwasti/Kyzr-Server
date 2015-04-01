@@ -1,19 +1,22 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
+import json
 
 app = Flask(__name__)
 @app.route('/')
-def hello():
+@app.route('/index')
+def index():
     return render_template('index.html')
 
 @app.route('/maps')
-def maps():
-    flightPlanCoordinates= [(37.772323, -122.214897),
+@app.route('/maps/<coords>')
+def maps(coords=[(37.772323, -122.214897),
         (21.291982, -157.821856),
         (-18.142599, 178.431),
-        (-27.46758, 153.027892)]
+        (-27.46758, 153.027892),
+        (-37.772323, -122.214897)]):
 
-    return render_template('maps.html', flightPlanCoordinates=flightPlanCoordinates)
+    return render_template('maps.html', coords=json.dumps(coords))
 
 @app.route('/info', methods=['GET', 'POST'])
 def info():
