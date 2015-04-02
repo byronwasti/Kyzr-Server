@@ -1,0 +1,50 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+
+.jumbotron {
+  background-color: #F44336;
+  overflow:auto;
+  height: 25rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  }
+
+.jumbotron .container {
+  position: center;
+  left:5rem;
+  top:1rem;
+  padding-top:5rem;
+}
+
+.jumbotron h1 {
+  color: #212121;
+  font-size: 55px;  
+  font-weight: bold;
+}
+
+.jumbotron p {
+  color: #212121;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.jumbotron img {
+   max-width:25%;
+   max-height:25%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%
+}
+
+.resources .contain{
+  padding-left: 20rem
+}
+
