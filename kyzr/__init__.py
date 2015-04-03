@@ -2,11 +2,25 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 import json
 
+# Setup Mongodb connection
+client = MongoClient()
+
+# The collection to be used
+users = client.kyzr.users 
+
+# Setup flask
 app = Flask(__name__)
+
+# Main homepage
+# TODO: Add login ability and other inputs
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Map page
+# TODO: Merge with homepage (?)
+#       Call map data from database
+#       Have input from phone ID
 @app.route('/maps/<coords>')
 def maps(coords=[(37.772323, -122.214897),
         (21.291982, -157.821856),
@@ -16,6 +30,9 @@ def maps(coords=[(37.772323, -122.214897),
 
     return render_template('maps.html', coords=json.dumps(coords))
 
+
+# Next two functions are for database 
+# adding/receiving for the android phones
 @app.route('/dbadd', methods=['GET','POST'])
 def dbadd():
     if request.method=="POST":
@@ -48,14 +65,6 @@ def dbreturn():
 
             return "success!"
     return "Request failed: Return failed"
-
-@app.route('/full')
-def map():
-    return render_template('full_map.html')
-
-@app.route('/line')
-def line():
-    return render_template('maps_old.html')
 
 if __name__ == "__main__":
     app.run()
