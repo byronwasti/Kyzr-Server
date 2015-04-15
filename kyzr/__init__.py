@@ -22,7 +22,7 @@ def index():
 #       Call map data from database
 #       Have input from phone ID
 @app.route('/maps')
-@app.route('/maps/<coords>')
+#@app.route('/maps/<coords>')
 def maps(coords=[(37.772323, -122.214897),
         (21.291982, -157.821856),
         (-18.142599, 178.431),
