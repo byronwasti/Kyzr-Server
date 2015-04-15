@@ -53,7 +53,17 @@ def dbadd():
             elif key == "id2":
                 id2 = request.form[key]
 
-        # TODO: Add database addition here
+        # updates existing document and creates a new one if it doesn't exist
+        users.update_one(
+            {'_id':id1}, 
+            {
+                '$set':{'curr_torch':id2},
+                '$push':{'transactions':[lat,lng]}
+            },
+            True    # upsert
+        )
+
+        #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'transactions':[lat,lng]}}, True)
         
         return "Success"
     return "Request method failed."
@@ -63,6 +73,7 @@ def dbreturn():
         if "id" in request.form.keys():
             phone_id = request.form["id"]
             # TODO: Get database info on current torch held and return it
+            #users.find_one({'_id':phone_id})
 
             return "success!"
     return "Request failed: Return failed"
