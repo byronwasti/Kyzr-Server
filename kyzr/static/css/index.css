@@ -1,5 +1,24 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
 
+.google-maps {
+  position: relative;
+  padding-bottom: 48%; // This is the aspect ratio
+  height: 0;
+  overflow: visible;
+}
+
+.google-maps iframe {
+  position: absolute;
+  margin-top:     2%;
+  margin-right:   5%;
+  margin-left:    5%;
+  margin-bottom:  2%;
+  top: 0;
+  left:0;
+  width: 90%;
+  height: 100%;
+}
+
 .jumbotron {
   background-color: #F44336;
   overflow:auto;
