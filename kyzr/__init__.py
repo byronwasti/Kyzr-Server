@@ -21,13 +21,29 @@ def index():
 # TODO: Merge with homepage (?)
 #       Call map data from database
 #       Have input from phone ID
-@app.route('/maps')
 #@app.route('/maps/<coords>')
-def maps(coords=[(37.772323, -122.214897),
-        (21.291982, -157.821856),
-        (-18.142599, 178.431),
-        (-27.46758, 153.027892),
-        (-37.772323, -122.214897)]):
+@app.route('/maps', methods=['GET', 'POST'])
+def maps():
+
+# coords=[(37.772323, -122.214897),
+#         (21.291982, -157.821856),
+#         (-18.142599, 178.431),
+#         (-27.46758, 153.027892),
+#         (-37.772323, -122.214897)]
+
+    coords = []
+    if(request.method=="POST"):
+        print request.form.keys()
+        if("id" in request.form.keys()):
+            print "Found ID!"
+            id_request = request.form["id"]
+            user_data = users.find_one({'_id':id_request})
+
+            if(type(user_data) is not None):
+                print user_data
+                coords = user_data['transactions']
+
+    print coords
 
     return render_template('maps.html', coords=json.dumps(coords))
 
@@ -36,7 +52,13 @@ def maps(coords=[(37.772323, -122.214897),
 # adding/receiving for the android phones
 @app.route('/dbadd', methods=['GET','POST'])
 def dbadd():
+    lat = -9999
+    lng = -9999
+    id1 = ""
+    id2 = ""
+
     if request.method=="POST":
+        print request.form.keys()
         for key in request.form.keys():
             if key == "lat":
                 try:
@@ -49,23 +71,61 @@ def dbadd():
                 except:
                     return "Request Failed: longitude was not a float"
             elif key == "id1":
-                id1 = request.form[key]
+                phone1_id = request.form[key]
             elif key == "id2":
-                id2 = request.form[key]
+                phone2_id = request.form[key]
 
-        # updates existing document and creates a new one if it doesn't exist
-        users.update_one(
-            {'_id':id1}, 
-            {
-                '$set':{'curr_torch':id2},
-                '$push':{'transactions':[lat,lng]}
-            },
-            True    # upsert
-        )
+        if(lat != -9999 and lng != -9999 and phone1_id != "" and phone2_id != ""):
+            first_user_data = users.find_one({'_id':phone1_id})
+            second_user_data = users.find_one({'_id':phone2_id})
 
-        #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'transactions':[lat,lng]}}, True)
-        
-        return "Success"
+            if(type(first_user_data) is not None):
+                torch1_id = phone1_id
+            else:
+                torch1_id = first_user_data['curr_torch']
+
+            if(type(second_user_data) is not None):
+                torch2_id = phone2_id
+            else:
+                torch2_id = second_user_data['curr_torch']
+                
+
+            # updates existing document and creates a new one if it doesn't exist
+            users.update_one(
+                {'_id':phone1_id}, 
+                {
+                    '$set':{'curr_torch':torch2_id}
+                },
+                True    # upsert
+            )
+
+            users.update_one(
+                {'_id':phone2_id}, 
+                {
+                    '$set':{'curr_torch':torch1_id}
+                },
+                True    # upsert
+            )
+
+            users.update_one(
+                {'_id':torch1_id},
+                {
+                    '$push':{'transactions':[lat,lng]}
+                },
+                True
+            )
+
+            users.update_one(
+                {'_id':torch2_id},
+                {
+                    '$push':{'transactions':[lat,lng]}
+                },
+                True
+            )
+
+            #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'transactions':[lat,lng]}}, True)
+            
+            return "Success"
     return "Request method failed."
 
 def dbreturn():
@@ -79,4 +139,4 @@ def dbreturn():
     return "Request failed: Return failed"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
