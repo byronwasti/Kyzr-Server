@@ -63,7 +63,8 @@ def dbadd():
             True    # upsert
         )
 
-        #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'transactions':[lat,lng]}}, True)
+        #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2},
+        #               '$push':{'transactions':[lat,lng]}}, True)
         
         return "Success"
     return "Request method failed."
