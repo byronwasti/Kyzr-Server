@@ -8,6 +8,7 @@
 ### What is The Kyzr Project?
 
 ### How do I play?
+Download the app!
 
 ### Where can I check my Torch's location?
 <a href=www.thekyzrproject.com>thekyzrproject.com</a>
