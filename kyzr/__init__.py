@@ -33,7 +33,6 @@ def maps():
 
     coords = []
     if(request.method=="POST"):
-        print request.form.keys()
         if("id" in request.form.keys()):
             id_request = request.form["id"]
             user_data = users.find_one({'_id':id_request})
@@ -132,4 +131,4 @@ def dbreturn():
     return "Request failed: Return failed"
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
