@@ -40,8 +40,10 @@ def maps():
 
             if(user_data is not None):
                 coords = user_data['transactions']
-
-    return render_template('maps.html', coords=json.dumps(coords))
+                return render_template('maps.html', coords=json.dumps(coords))
+            else:
+                return "ID: " + id_request + " not found"
+    return "Error occurred"
 
 
 # Next two functions are for database 
