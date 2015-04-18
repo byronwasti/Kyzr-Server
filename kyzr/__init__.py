@@ -24,13 +24,6 @@ def index():
 #@app.route('/maps/<coords>')
 @app.route('/maps', methods=['GET', 'POST'])
 def maps():
-
-# coords=[(37.772323, -122.214897),
-#         (21.291982, -157.821856),
-#         (-18.142599, 178.431),
-#         (-27.46758, 153.027892),
-#         (-37.772323, -122.214897)]
-
     coords = []
     if(request.method=="POST"):
         if("id" in request.form.keys()):
@@ -39,10 +32,9 @@ def maps():
 
             if(user_data is not None):
                 coords = user_data['transactions']
-                return render_template('maps.html', coords=json.dumps(coords))
             else:
                 return "ID: " + id_request + " not found"
-    return "Error occurred"
+    return render_template('maps.html', coords=json.dumps(coords))
 
 
 # Next two functions are for database 
@@ -102,7 +94,7 @@ def dbadd():
             users.update_one(
                 {'_id':torch1_id},
                 {
-                    '$push':{'transactions':[lat,lng]}
+                    '$push':{'transactions':[lat,lng]} ,
                 },
                 True
             )
@@ -119,16 +111,6 @@ def dbadd():
             
             return "Success"
     return "Request method failed."
-
-def dbreturn():
-    if request.method=="POST":
-        if "id" in request.form.keys():
-            phone_id = request.form["id"]
-            # TODO: Get database info on current torch held and return it
-            #users.find_one({'_id':phone_id})
-
-            return "success!"
-    return "Request failed: Return failed"
 
 if __name__ == "__main__":
     app.run()
