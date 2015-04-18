@@ -25,7 +25,7 @@ def maps():
             user_data = users.find_one({'_id':id_request})
 
             if(user_data is not None):
-                coords = user_data['transactions']
+                coords = user_data['locs']
             else:
                 return "ID: " + id_request + " not found"
     return render_template('maps.html', coords=json.dumps(coords))
@@ -88,7 +88,7 @@ def dbadd():
             users.update_one(
                 {'_id':torch1_id},
                 {
-                    '$push':{'transactions':[lat,lng]} ,
+                    '$push':{'locs':[lat,lng]} ,
                 },
                 True
             )
@@ -96,12 +96,12 @@ def dbadd():
             users.update_one(
                 {'_id':torch2_id},
                 {
-                    '$push':{'transactions':[lat,lng]}
+                    '$push':{'locs':[lat,lng]}
                 },
                 True
             )
 
-            #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'transactions':[lat,lng]}}, True)
+            #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'locs':[lat,lng]}}, True)
             
             return "Success"
     return "Request method failed."
