@@ -24,7 +24,7 @@ def maps():
             id_request = request.form["id"]
             user_data = users.find_one({'_id':id_request})
 
-            if(user_data is not None):
+            if(user_data):
                 coords = user_data['locs']
             else:
                 return "ID: " + id_request + " not found"
