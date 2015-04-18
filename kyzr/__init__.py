@@ -35,15 +35,11 @@ def maps():
     if(request.method=="POST"):
         print request.form.keys()
         if("id" in request.form.keys()):
-            print "Found ID!"
             id_request = request.form["id"]
             user_data = users.find_one({'_id':id_request})
 
-            if(type(user_data) is not None):
-                print user_data
+            if(user_data is not None):
                 coords = user_data['transactions']
-
-    print coords
 
     return render_template('maps.html', coords=json.dumps(coords))
 
@@ -52,43 +48,38 @@ def maps():
 # adding/receiving for the android phones
 @app.route('/dbadd', methods=['GET','POST'])
 def dbadd():
-    lat = -9999
-    lng = -9999
-    id1 = ""
-    id2 = ""
 
     if request.method=="POST":
-        print request.form.keys()
-        for key in request.form.keys():
-            if key == "lat":
-                try:
-                    lat = float(request.form[key])
-                except:
-                    return "Request Failed: latitude was not a float"
-            elif key == "lng":
-                try:
-                    lng = float(request.form[key])
-                except:
-                    return "Request Failed: longitude was not a float"
-            elif key == "id1":
-                phone1_id = request.form[key]
-            elif key == "id2":
-                phone2_id = request.form[key]
+        if("lat" in request.form.keys() and "lng" in request.form.keys() and 
+            "id1" in request.form.keys() and "id2" in request.form.keys()):
+            for key in request.form.keys():
+                if key == "lat":
+                    try:
+                        lat = float(request.form[key])
+                    except:
+                        return "Request Failed: latitude was not a float"
+                elif key == "lng":
+                    try:
+                        lng = float(request.form[key])
+                    except:
+                        return "Request Failed: longitude was not a float"
+                elif key == "id1":
+                    phone1_id = request.form[key]
+                elif key == "id2":
+                    phone2_id = request.form[key]
 
-        if(lat != -9999 and lng != -9999 and phone1_id != "" and phone2_id != ""):
             first_user_data = users.find_one({'_id':phone1_id})
             second_user_data = users.find_one({'_id':phone2_id})
 
-            if(type(first_user_data) is not None):
-                torch1_id = phone1_id
-            else:
+            if(first_user_data is not None):
                 torch1_id = first_user_data['curr_torch']
-
-            if(type(second_user_data) is not None):
-                torch2_id = phone2_id
             else:
+                torch1_id = phone1_id
+
+            if(second_user_data is not None):
                 torch2_id = second_user_data['curr_torch']
-                
+            else:
+                torch2_id = phone2_id
 
             # updates existing document and creates a new one if it doesn't exist
             users.update_one(
