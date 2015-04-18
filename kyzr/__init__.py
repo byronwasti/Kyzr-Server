@@ -24,7 +24,7 @@ def maps():
     coords = []
     if(request.method=="POST"):
         if("id" in request.form.keys()):
-            user = kyzr.find_user( request.form(["id"]) )
+            user = kyzr.find_user(request.form["id"])
 
             if(user is not None):
                 coords = user['locs']
@@ -58,7 +58,7 @@ def dbadd():
                 elif key == "id2":
                     phone2_id = request.form[key]
 
-            kzyr.swap_torch(phone1_id, phone2_id, lat, lng)
+            kyzr.swap_torch(phone1_id, phone2_id, lat, lng)
             
             return "Success"
     return "Request method failed."
