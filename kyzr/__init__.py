@@ -1,12 +1,6 @@
 from flask import Flask, render_template, request
-from pymongo import MongoClient
 import json
-
-# Setup Mongodb connection
-client = MongoClient()
-
-# The collection to be used
-users = client.kyzr.users 
+from kyzr_db import dbEditor
 
 # Setup flask
 app = Flask(__name__)
