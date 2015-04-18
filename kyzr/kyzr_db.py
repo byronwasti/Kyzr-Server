@@ -4,9 +4,40 @@ class dbEditor:
     def __init__:
         self.client = MongoClient()
         self.users = self.client.kyzr.users
-    def new_user( phone_id, torch, loc):
-        pass
-    def add_location( phone_id, loc):
-        pass
-    def swap_torch (id_1, id_2):
-        pass
+    def swap_torch (pid1, pid2, lat, lng):
+        pid1_d = self.users.find_one({'_id':pid1})
+        pid2_d = self.users.find_one({'_id':pid2})
+
+        if pid1_d:
+            torch1 = pid1_d['torch']
+        else:
+            torch1 = pid1
+
+        if pid2_d: 
+            torch2 = pid2_d['torch']
+        else:
+            torch2 = pid2
+
+        # Torch held updates
+        self.users.update_one(
+                {'_id':pid1},
+                {'$set':{'torch':torch2}},
+                True)
+        self.users.update_one(
+                {'_id':pid2},
+                {'$set':{'torch':torch1}},
+                True)
+
+        # Location updates
+        self.users.update_one(
+                {'_id':torch1},
+                {'$push':{'locs':[lat,lng]}},
+                True)
+        self.users.update_one(
+                {'_id':torch2},
+                {'$push':{'locs':[lat,lng]}},
+                True)
+
+
+    def find_user(pid):
+        return self.users.find_one({'_id':pid})

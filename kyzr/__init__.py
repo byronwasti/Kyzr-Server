@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 import json
+
+# pyMongodb wrapper
 from kyzr_db import dbEditor
+kyzr = dbEditor()
 
 # Setup flask
 app = Flask(__name__)
@@ -21,11 +24,10 @@ def maps():
     coords = []
     if(request.method=="POST"):
         if("id" in request.form.keys()):
-            id_request = request.form["id"]
-            user_data = users.find_one({'_id':id_request})
+            user = kyzr.find_user( request.form(["id"] )
 
-            if(user_data):
-                coords = user_data['locs']
+            if(user):
+                coords = user['locs']
             else:
                 return "ID: " + id_request + " not found"
     return render_template('maps.html', coords=json.dumps(coords))
@@ -39,6 +41,7 @@ def dbadd():
     if request.method=="POST":
         if("lat" in request.form.keys() and "lng" in request.form.keys() and 
             "id1" in request.form.keys() and "id2" in request.form.keys()):
+
             for key in request.form.keys():
                 if key == "lat":
                     try:
@@ -55,53 +58,7 @@ def dbadd():
                 elif key == "id2":
                     phone2_id = request.form[key]
 
-            first_user_data = users.find_one({'_id':phone1_id})
-            second_user_data = users.find_one({'_id':phone2_id})
-
-            if(first_user_data is not None):
-                torch1_id = first_user_data['curr_torch']
-            else:
-                torch1_id = phone1_id
-
-            if(second_user_data is not None):
-                torch2_id = second_user_data['curr_torch']
-            else:
-                torch2_id = phone2_id
-
-            # updates existing document and creates a new one if it doesn't exist
-            users.update_one(
-                {'_id':phone1_id}, 
-                {
-                    '$set':{'curr_torch':torch2_id}
-                },
-                True    # upsert
-            )
-
-            users.update_one(
-                {'_id':phone2_id}, 
-                {
-                    '$set':{'curr_torch':torch1_id}
-                },
-                True    # upsert
-            )
-
-            users.update_one(
-                {'_id':torch1_id},
-                {
-                    '$push':{'locs':[lat,lng]} ,
-                },
-                True
-            )
-
-            users.update_one(
-                {'_id':torch2_id},
-                {
-                    '$push':{'locs':[lat,lng]}
-                },
-                True
-            )
-
-            #users.update_one({'_id':id1}, {'$set':{'curr_torch':id2}, '$push':{'locs':[lat,lng]}}, True)
+            kzyr.swap_torch(phone1_id, phone2_id, lat, lng)
             
             return "Success"
     return "Request method failed."
