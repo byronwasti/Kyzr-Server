@@ -1,10 +1,10 @@
 from pymongo import MongoClient
 
 class dbEditor:
-    def __init__:
+    def __init__(self):
         self.client = MongoClient()
         self.users = self.client.kyzr.users
-    def swap_torch (pid1, pid2, lat, lng):
+    def swap_torch (self,pid1, pid2, lat, lng):
         pid1_d = self.users.find_one({'_id':pid1})
         pid2_d = self.users.find_one({'_id':pid2})
 
@@ -39,5 +39,5 @@ class dbEditor:
                 True)
 
 
-    def find_user(pid):
+    def find_user(self,pid):
         return self.users.find_one({'_id':pid})
