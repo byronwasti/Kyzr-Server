@@ -25,7 +25,6 @@ def maps():
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             user = kyzr.find_user(request.form["id"])
-            return user
 
             if(user is not None):
                 coords = user['locs']
