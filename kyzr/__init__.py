@@ -31,12 +31,13 @@ def maps():
                 coords = user['locs']
             else:
                 return "ID: " + id_request + " not found"
-    if coords != []:
+    if not coords:
         #center = [ float(sum(i)/len(i)) for i in coords ]
         center = [10,10]
     #center = [42.2927482,   -71.2640407]
     #return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
-    return render_template('error.html', coords=json.dumps(coords), center=json.dumps(center))
+    #return render_template('error.html', coords=json.dumps(coords), center=json.dumps(center))
+    return render_template('error.html', coords=coords, center=center)
 
 
 # Next two functions are for database 
