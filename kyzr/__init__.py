@@ -30,7 +30,8 @@ def maps():
                 coords = user['locs']
             else:
                 return "ID: " + id_request + " not found"
-    return render_template('maps.html', coords=json.dumps(coords))
+    center = [-180, 0]
+    return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
 
 
 # Next two functions are for database 
