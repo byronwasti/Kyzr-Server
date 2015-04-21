@@ -6,6 +6,7 @@
 ##FAQ
 
 ### What is The Kyzr Project?
+It is a cool project
 
 ### How do I play?
 Download the app!
