@@ -22,6 +22,7 @@ def index():
 @app.route('/maps', methods=['GET', 'POST'])
 def maps():
     coords = []
+    center = [0,0]
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             user = kyzr.find_user(request.form["id"])
@@ -30,9 +31,11 @@ def maps():
                 coords = user['locs']
             else:
                 return "ID: " + id_request + " not found"
-    center = [ float(sum(i)/len(i)) for i in coords ]
+    if not coords:
+        center = [ float(sum(i)/len(i)) for i in coords ]
     #center = [42.2927482,   -71.2640407]
-    return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
+    #return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
+    return render_template('error.html', coords=json.dumps(coords), center=json.dumps(center))
 
 
 # Next two functions are for database 
