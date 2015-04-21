@@ -36,7 +36,7 @@ def maps():
         lats = [ coords[j][0] for j in xrange(len(coords))]
         lons = [ coords[j][1] for j in xrange(len(coords))]
         center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
-        zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
+        #zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
 
 #   return render_template('maps.html',
 #           coords=json.dumps(coords),
