@@ -38,14 +38,14 @@ def maps():
         center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
         #zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
 
-#   return render_template('maps.html',
-#           coords=json.dumps(coords),
+   return render_template('maps.html',
+           coords=json.dumps(coords),
+           center=json.dumps(center),
+           zoom=json.dumps(zoom))
+#   return render_template('error.html', 
+#           coords=json.dumps(coords), 
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
-    return render_template('error.html', 
-            coords=json.dumps(coords), 
-            center=json.dumps(center),
-            zoom=json.dumps(zoom))
 
 
 # Next two functions are for database 
