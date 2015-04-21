@@ -23,6 +23,7 @@ def index():
 def maps():
     coords = []
     center = [0,0]
+    zoom = 15
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             user = kyzr.find_user(request.form["id"])
@@ -34,7 +35,10 @@ def maps():
     if coords:
         center = [ float(sum(i)/len(i)) for i in ([coords[j][0] for j in xrange(len(coords))], [coords[k][1] for k in xrange(len(coords))]) ]
 
-    return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
+    return render_template('maps.html',
+            coords=json.dumps(coords),
+            center=json.dumps(center),
+            zoom=json.dumps(zoom))
     #return render_template('error.html', coords=json.dumps(coords), center=json.dumps(center))
 
 

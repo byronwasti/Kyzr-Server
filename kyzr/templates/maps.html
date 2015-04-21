@@ -26,7 +26,7 @@ function initialize() {
   var center_coords = {{center|safe}}
 
   var mapOptions = {
-    zoom: 3,
+    zoom: {{zoom|safe}},
     center: new google.maps.LatLng(center_coords[0], center_coords[1]),
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
