@@ -23,9 +23,11 @@
 // Oakland, CA, and Brisbane, Australia.
 
 function initialize() {
+  var center_coords = {{center|safe}}
+
   var mapOptions = {
     zoom: 3,
-    center: new google.maps.LatLng(0, -180),
+    center: new google.maps.LatLng(center_coords[0], center_coords[1]),
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
 
