@@ -6,6 +6,7 @@
 ##FAQ
 
 ### What is The Kyzr Project?
+[MAP FIX TEST COMMIT]
 
 ### How do I play?
 Download the app!
