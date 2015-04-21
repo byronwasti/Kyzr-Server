@@ -32,12 +32,10 @@ def maps():
             else:
                 return "ID: " + id_request + " not found"
     if coords:
-        center = [ float(sum(i)/len(i)) for i in ([coords[j][0] for j in coords], [coords[k][1] for k in coords]) ]
+        center = [ float(sum(i)/len(i)) for i in ([coords[j][0] for j in xrange(len(coords))], [coords[k][1] for k in xrange(len(coords))]) ]
 
-    #center = [42.2927482,   -71.2640407]
     #return render_template('maps.html', coords=json.dumps(coords), center=json.dumps(center))
     return render_template('error.html', coords=json.dumps(coords), center=json.dumps(center))
-    #return render_template('error.html', coords=coords, center=center)
 
 
 # Next two functions are for database 
