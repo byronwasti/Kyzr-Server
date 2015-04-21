@@ -31,7 +31,7 @@ def maps():
                 coords = user['locs']
             else:
                 return "ID: " + id_request + " not found"
-    if not coords:
+    if coords != []:
         #center = [ float(sum(i)/len(i)) for i in coords ]
         center = [10,10]
     #center = [42.2927482,   -71.2640407]
