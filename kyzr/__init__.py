@@ -39,7 +39,7 @@ def maps():
         #zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
         zoom = 15
 
-   return render_template('maps.html',
+    return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
            zoom=json.dumps(zoom))
