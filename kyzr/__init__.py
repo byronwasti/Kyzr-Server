@@ -31,7 +31,8 @@ def maps():
             if(user is not None):
                 coords = user['locs']
             else:
-                return "ID: " + id_request + " not found"
+                #return "ID: " + id_request + " not found"
+                return render_template('error.html')
     if coords:
         lats = [ coords[j][0] for j in xrange(len(coords))]
         lons = [ coords[j][1] for j in xrange(len(coords))]
