@@ -14,7 +14,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('class_notes')
+@app.route('/class_notes')
 def notes():
     return render_template('class_notes.html')
 
