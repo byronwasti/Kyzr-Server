@@ -22,7 +22,7 @@
 .jumbotron {
   background-color: #F44336;
   overflow:auto;
-  height: 25rem;
+  height: 13rem;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -32,7 +32,7 @@
   position: center;
   left:5rem;
   top:1rem;
-  padding-top:5rem;
+  padding-top:3rem;
 }
 
 .jumbotron h1 {
@@ -48,8 +48,8 @@
 }
 
 .jumbotron img {
-   max-width:25%;
-   max-height:25%;
+   max-width:15%;
+   max-height:15%;
 }
 
 * {
