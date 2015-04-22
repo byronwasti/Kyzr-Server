@@ -23,7 +23,7 @@ def index():
 def maps():
     coords = []
     center = [0,0]
-    zoom = 15
+    zoom = 3
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             user = kyzr.find_user(request.form["id"])
@@ -37,6 +37,7 @@ def maps():
         lons = [ coords[j][1] for j in xrange(len(coords))]
         center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
         #zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
+        zoom = 15
 
    return render_template('maps.html',
            coords=json.dumps(coords),
