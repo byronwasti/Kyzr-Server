@@ -40,4 +40,8 @@ class dbEditor:
 
 
     def find_user(self,pid):
-        return self.users.find_one({'_id':pid})
+        user = self.users.find_one({'_id':pid})
+        if user is None:
+            user = self.users.find_one({'username':pid})
+
+        return user
