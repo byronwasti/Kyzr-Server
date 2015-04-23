@@ -42,7 +42,7 @@ def maps():
         lons = [ coords[j][1] for j in xrange(len(coords))]
         center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
         zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
-        zoom = int((15 - 3)/(0, 180)*(zoom) + 3)
+        zoom = int((15 - 3)/(0 - 180)*(zoom) + 3)
         #zoom = 15
 
 #   return render_template('maps.html',
