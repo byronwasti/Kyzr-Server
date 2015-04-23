@@ -67,6 +67,24 @@ def verify():
 
 
 @app.route('/newuser', methods=['GET', 'POST'])
+def newuser():
+
+    if request.method=="POST":
+        print request.form.keys()
+        if("pid" in request.form.keys() and 
+            "username" in request.form.keys()):
+
+            pid = request.form["pid"]
+            username = request.form["username"]
+
+            user = kyzr.verify_user(pid, username)
+
+            if(user is None):
+                kyzr.add_user(pid, username)
+                return "True"
+            else:
+                return "False"
+    return "Invalid Search"
 
 
 # Next two functions are for database 
@@ -100,4 +118,4 @@ def dbadd():
     return "Request method failed."
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
