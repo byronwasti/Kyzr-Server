@@ -57,6 +57,39 @@ def maps():
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
 
+@app.route('/verify', methods=['GET', 'POST'])
+def verify():
+
+    if request.method=="POST":
+        if ("search_id" in request.form.keys()):
+            user = kyzr.find_user(request.form["search_id"])
+
+            if(user is None):
+                return "False"
+            return "True"
+    return "Invalid Search"
+
+
+@app.route('/newuser', methods=['GET', 'POST'])
+def newuser():
+
+    if request.method=="POST":
+        print request.form.keys()
+        if("pid" in request.form.keys() and 
+            "username" in request.form.keys()):
+
+            pid = request.form["pid"]
+            username = request.form["username"]
+
+            user = kyzr.verify_user(pid, username)
+
+            if(user is None):
+                kyzr.add_user(pid, username)
+                return "True"
+            else:
+                return "False"
+    return "Invalid Search"
+
 
 # Next two functions are for database 
 # adding/receiving for the android phones
