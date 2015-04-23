@@ -42,12 +42,12 @@ def maps():
         lons = [ coords[j][1] for j in xrange(len(coords))]
         center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
         zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
-        for i in xrange(0,15,3):
+        for i in xrange(0,15,1):
             if zoom < 0.005:
                 zoom = 15-i
                 break
-            zoom = zoom/10.0
-        zoom = 3
+            zoom = zoom/2.0
+        #zoom = 3
         #zoom = int((3 - 15)/(0 - 180)*(zoom) + 3)
         #zoom = 15
 
