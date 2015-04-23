@@ -44,7 +44,7 @@ def maps():
         zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
         for i in xrange(15):
             if zoom < 0.005:
-                zoom = i
+                zoom = 15-i
                 break
             zoom = zoom/10.0
         #zoom = int((3 - 15)/(0 - 180)*(zoom) + 3)
