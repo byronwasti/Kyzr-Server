@@ -46,7 +46,7 @@ def maps():
             if zoom < 0.005:
                 zoom = 15-i
                 break
-            zoom = zoom/5.0
+            zoom = zoom/7.0
         #zoom = 3
         #zoom = int((3 - 15)/(0 - 180)*(zoom) + 3)
         #zoom = 15
