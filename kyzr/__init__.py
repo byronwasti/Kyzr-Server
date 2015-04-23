@@ -47,6 +47,7 @@ def maps():
                 zoom = 15-i
                 break
             zoom = zoom/10.0
+        zoom = 3
         #zoom = int((3 - 15)/(0 - 180)*(zoom) + 3)
         #zoom = 15
 
