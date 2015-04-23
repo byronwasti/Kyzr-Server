@@ -122,4 +122,4 @@ def dbadd():
     return "Request method failed."
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
