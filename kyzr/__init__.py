@@ -51,14 +51,14 @@ def maps():
         #zoom = int((3 - 15)/(0 - 180)*(zoom) + 3)
         #zoom = 15
 
-    return render_template('maps.html',
-           coords=json.dumps(coords),
-           center=json.dumps(center),
-           zoom=json.dumps(zoom))
-#   return render_template('debug.html', 
-#           coords=json.dumps(coords), 
-#           center=json.dumps(center),
-#           zoom=json.dumps(zoom))
+#   return render_template('maps.html',
+#          coords=json.dumps(coords),
+#          center=json.dumps(center),
+#          zoom=json.dumps(zoom))
+    return render_template('debug.html', 
+            coords=json.dumps(coords), 
+            center=json.dumps(center),
+            zoom=json.dumps(zoom))
 
 
 # Next two functions are for database 
