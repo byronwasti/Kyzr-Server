@@ -49,7 +49,7 @@ def maps():
 #          coords=json.dumps(coords),
 #          center=json.dumps(center),
 #          zoom=json.dumps(zoom))
-    return render_template('error.html', 
+    return render_template('debug.html', 
             coords=json.dumps(coords), 
             center=json.dumps(center),
             zoom=json.dumps(zoom))
