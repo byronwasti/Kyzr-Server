@@ -7,21 +7,30 @@
     <link rel="stylesheet" type="text/css" href="../static/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="../static/css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/index.css">
-    <script src="static/js/button.js"></script> 
   </head>
 
-
   <body>
-
     <div class="jumbotron">
+
+      <div id="header">
+        <a href="maps"><img src="../static/images/TheKyzrProject.png" height="110px" width="auto"></a>
+      </div>
+
+    <!--<div class="jumbotron">
       <div class="container">
         <a href="maps"><img src="../static/images/TheKyzrProject.png"></a>
       </div>
-    </div> 
+    </div>-->
+      <div id="content">
+        <div class="google-maps">
+          <iframe src="/maps" frameborder="0" height="100%"></iframe>
+        </div>
+      </div>
 
-    <div class="google-maps">
-      <iframe src="/maps" width="600" height="450" frameborder="0" style="border:0"></iframe>
+      <div id="footer">
+        <p><a href="class_notes">Resources</a></p>
+      </div>
+
     </div>
-    <h3><a href="class_notes">Resources</a></h3>
   </body>
 </html>

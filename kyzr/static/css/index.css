@@ -1,14 +1,48 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
 
+#header {
+  background-color:#F44336;
+  color:black;
+  height: 140px;
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-left: 5%;
+  padding-top: 1rem;
+}
+
+#content {
+  height:auto;
+  width:auto;
+  padding-bottom:25px;
+  /*min-height:400px;*/
+}
+
+#footer {
+  position:absolute;
+  background-color:#F44336;
+  color:black;
+  text-align:center;
+  padding:3px;
+  height:25px;
+  width:100%;
+  bottom:0;
+  left:0;
+}
+
 .google-maps {
-  position: relative;
+  /*position: relative;
   padding-bottom: 48%; // This is the aspect ratio
   height: 0;
-  overflow: visible;
+  overflow: scroll;*/
+  position:fixed;
+  width:100%;
+  height:100%;
+  /*padding-bottom:48%;*/
+
 }
 
 .google-maps iframe {
-  position: absolute;
+  /*position: absolute;
   margin-top:     2%;
   margin-right:   5%;
   margin-left:    5%;
@@ -16,23 +50,19 @@
   top: 0;
   left:0;
   width: 90%;
-  height: 100%;
+  height: 100%;*/
+  position:absolute;
+  /*display:block;
+  margin:auto;*/
+  padding-left:30px;
+  padding-right:30px;
+  width:100%;
+  height:100%;
 }
 
 .jumbotron {
-  background-color: #F44336;
-  overflow:auto;
-  height: 10rem;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: right;
-  }
-
-.jumbotron .container {
-  position: absolute;
-  left:4%;
-  top: 0rem;
-  padding-top:1rem;
+  position:static;
+  min-height:100%;
 }
 
 .jumbotron h1 {
@@ -47,10 +77,21 @@
   font-weight: bold;
 }
 
+.jumbotron a:link {
+  color:#212121;
+}
+.jumbotron a:visited {
+  color:#212121;
+}
+.jumbotron a:hover {
+  text-decoration: underline;
+}
+.jumbotron a:active {
+  text-decoration: underline;
+}
+
 .jumbotron img {
-   /*max-width:15%;
-   max-height:15%;*/
-   height: 8rem;
+   height: 112px;
    width: auto;
 }
 
@@ -61,11 +102,9 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%
-}
-
-.resources .contain{
-  padding-left: 20rem
+html, body {
+  height: 100%;
+  margin:0;
+  padding:0;
 }
 
