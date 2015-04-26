@@ -31,38 +31,45 @@ def maps():
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             user = kyzr.find_user(request.form["id"])
-
-            if(user is not None):
-                print url_for('maps', torch=request.form["id"])
-                return redirect(url_for('torch_maps', torchID=request.form["id"])) # needs to be url_for
-            else:
-                return render_template('maps.html',
-                    coords=json.dumps(coords),
-                    center=json.dumps(center),
-                    zoom=json.dumps(zoom),
-                    error=request.form["id"])
+            if(request.form["id"]!=''):
+                return redirect(url_for('torch_maps', torchID=request.form["id"]))
 
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
            zoom=json.dumps(zoom),
+           torchID='',
            error=0)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
 
-@app.route('/maps/torch/<torchID>', methods=['GET', 'POST'])
+@app.route('/maps/<torchID>', methods=['GET', 'POST'])
 def torch_maps(torchID):
     coords = []
     center = [0,0]
-    zoom = 10
-    #user = kyzr.find_user(ID)
-    """if(user is not None):
+    zoom = 3
+
+    if(request.method=="POST"): # looking up another torch
+        print "POST"
+        if("id" in request.form.keys()):
+            print request.form["id"]
+            if(request.form["id"]!=''):
+                return redirect(url_for('torch_maps', torchID=request.form["id"]))
+            else:
+                return redirect('/maps')
+
+    user = kyzr.find_user(torchID)
+
+    if(user is not None):
         coords = user['locs']
-    else:
-        # should never happen
-        return render_template('error.html')
+    else:   # if someone typed in a random torchID url
+        return render_template('maps.html',
+            coords=json.dumps(coords),
+            center=json.dumps(center),
+            zoom=json.dumps(zoom),
+            error=torchID)
     lats = [ coords[j][0] for j in xrange(len(coords))]
     lons = [ coords[j][1] for j in xrange(len(coords))]
     center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
@@ -71,13 +78,13 @@ def torch_maps(torchID):
         if zoom < 0.005:
             zoom = 15-i
             break
-        zoom = zoom/7.0"""
+        zoom = zoom/7.0
 
-    print torchID
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
            zoom=json.dumps(zoom),
+           torchID=torchID,
            error=0)
 
 @app.route('/verify', methods=['GET', 'POST'])
