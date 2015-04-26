@@ -3,7 +3,6 @@
 #map-canvas {
     position: relative;
     overflow: auto;
-    /*transform: translateZ(0px);*/
     background-color: rgb(229, 227, 223);
     height:100%;
     z-index: 0;
