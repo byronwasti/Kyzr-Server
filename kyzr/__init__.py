@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 import json
 
 # pyMongodb wrapper
@@ -28,15 +28,19 @@ def maps():
     coords = []
     center = [0,0]
     zoom = 3
+    torchID = ''
+    error = False
     if(request.method=="POST"):
         if("id" in request.form.keys()):
+            torchID = request.form["id"]
             user = kyzr.find_user(request.form["id"])
 
             if(user is not None):
                 coords = user['locs']
             else:
-                #return "ID: " + id_request + " not found"
-                return render_template('error.html')
+                error = True
+            #else:
+            #    return render_template('error.html')
     if coords:
         lats = [ coords[j][0] for j in xrange(len(coords))]
         lons = [ coords[j][1] for j in xrange(len(coords))]
@@ -48,14 +52,18 @@ def maps():
                 break
             zoom = zoom/7.0
 
+
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
-           zoom=json.dumps(zoom))
+           zoom=json.dumps(zoom),
+           torchID=torchID,
+           error=error)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
+
 
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():

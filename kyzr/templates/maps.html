@@ -3,19 +3,8 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple Polylines</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-      #map-canvas {
-        height: 90%;
-        margin: 0px;
-        padding: 0px
-      }
-    </style>
+    <title>Maps</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/maps.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
 
@@ -37,13 +26,13 @@
           gMapsCoords[gMapsCoords.length] = new google.maps.LatLng(safeCoords[i][0], safeCoords[i][1]);
         }
 
-        var path = new google.maps.Polyline({
-          path: gMapsCoords,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
+  var path = new google.maps.Polyline({
+    path: gMapsCoords,
+    geodesic: true,
+    strokeColor: '#F90101',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
         path.setMap(map);
       }
@@ -53,12 +42,19 @@
     </script>
   </head>
   <body>
-    <center>
-      <form action="maps" method="POST">
-        <input type="text" name="id" placeholder="Search for an ID" /><br />
-        <input type="submit" value="Submit" />
-      </form>
-    </center>
     <div id="map-canvas"></div>
+    <form id="searchID" action="maps" method="POST">
+      {% if error %}
+        <input type="text" name="id" value="" placeholder="Enter a username or ID" autofocus onfocus="this.value = this.value;">
+        <p>Enter a valid ID</p>
+      {% else %}
+        {% if torchID == '' %}
+          <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID" autofocus>
+        {% else %}
+          <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID">
+        {% endif %}
+      {% endif %}
+      <button type="submit">Submit</button>
+    </form>
   </body>
 </html>
