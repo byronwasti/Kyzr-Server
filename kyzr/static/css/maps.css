@@ -28,16 +28,15 @@
   height: 32px;
   outline: none;
   padding: 0 7px;
-  width: 400px;
-  vertical-align: top;
-  z-index:2;
+  width: 268px;
+  z-index:3;
 }
 
 #searchID input[type="text"]:focus {
   border-color: #4d90fe;
   margin-left: -1px;
   padding-left: 8px;
-  width: 401px;
+  width: 269px;
 }
 
 #searchID input[type="text"]:-webkit-autofill {
@@ -45,13 +44,22 @@
 }
 
 #searchID p {
+  /*position:absolute;
+  top: 7px;
+  left:195px;*/
   position:relative;
-  top: -25px;
-  left:295px;
+  top:-2px;
+  background-color:white;
+  text-align: center;
   color:red;
-  font-size:11pt;
+  height:28px;
+  font-size:9pt;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
+  padding: 8px 7px;
   display:block;
-  z-index:3;
+  width:95px;
+  z-index:2;
 }
 
 #searchID button {
@@ -62,7 +70,7 @@
   border-radius: 0 2px 2px 0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   height: 32px;
-  left: 400px;
+  left: 268px;
   position: absolute;
   text-align: center;
   top: 0;
