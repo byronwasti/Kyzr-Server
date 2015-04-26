@@ -31,7 +31,7 @@ def maps():
     torchID = ''
     if(request.method=="POST"):
         if("id" in request.form.keys()):
-            torchID = request.form["id"])
+            torchID = request.form["id"]
             user = kyzr.find_user(request.form["id"])
 
             if(user is not None):
