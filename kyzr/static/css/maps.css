@@ -16,11 +16,6 @@
 }
 
 #searchID input[type="text"] {
-  /*font-size:12pt;
-  padding:5px 8px;
-  height:32px;
-  border:1px solid #4d90fe;*/
-
   font-size: 11pt;
   background-color: #fff;
   border: 1px solid transparent;
@@ -38,10 +33,14 @@
 }
 
 #searchID input[type="text"]:focus {
-  border-color: #4d90fe !important;
+  border-color: #4d90fe;
   margin-left: -1px;
   padding-left: 8px;
   width: 401px;
+}
+
+#searchID input[type="text"]:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 15px white inset;
 }
 
 #searchID button {
