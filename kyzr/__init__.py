@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 import json
 
 # pyMongodb wrapper
@@ -33,7 +33,8 @@ def maps():
             user = kyzr.find_user(request.form["id"])
 
             if(user is not None):
-                return redirect('/maps/torch/'+request.form["id"])
+                print url_for('maps', torch=request.form["id"])
+                return redirect(url_for('torch_maps', torchID=request.form["id"])) # needs to be url_for
             else:
                 return render_template('maps.html',
                     coords=json.dumps(coords),
@@ -51,13 +52,13 @@ def maps():
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
 
-@app.route('/maps/torch/<ID>', methods=['GET', 'POST'])
-def torch_maps(ID):
+@app.route('/maps/torch/<torchID>', methods=['GET', 'POST'])
+def torch_maps(torchID):
     coords = []
     center = [0,0]
-    zoom = 3
-    user = kyzr.find_user(ID)
-    if(user is not None):
+    zoom = 10
+    #user = kyzr.find_user(ID)
+    """if(user is not None):
         coords = user['locs']
     else:
         # should never happen
@@ -70,8 +71,9 @@ def torch_maps(ID):
         if zoom < 0.005:
             zoom = 15-i
             break
-        zoom = zoom/7.0
+        zoom = zoom/7.0"""
 
+    print torchID
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),

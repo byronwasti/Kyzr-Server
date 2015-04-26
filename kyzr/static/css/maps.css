@@ -6,7 +6,7 @@
     /*transform: translateZ(0px);*/
     background-color: rgb(229, 227, 223);
     height:100%;
-    z-index: -2;
+    z-index: 0;
 }
 
 #searchID {
@@ -16,6 +16,7 @@
 }
 
 #searchID input[type="text"] {
+  position:relative;
   font-size: 11pt;
   background-color: #fff;
   border: 1px solid transparent;
@@ -29,7 +30,7 @@
   padding: 0 7px;
   width: 400px;
   vertical-align: top;
-  z-index:100;
+  z-index:2;
 }
 
 #searchID input[type="text"]:focus {
@@ -58,7 +59,12 @@
   vertical-align: top;
   width: 72px;
   margin-left: 0;
-  z-index:-1;
+  z-index:1;
+}
+
+#searchID button:hover{
+  background-color: #357ae8;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
 }
 
 #searchID button::before {
