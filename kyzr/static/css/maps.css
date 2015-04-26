@@ -2,10 +2,74 @@
 
 #map-canvas {
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     /*transform: translateZ(0px);*/
     background-color: rgb(229, 227, 223);
     height:100%;
+    z-index: -2;
+}
+
+#searchID {
+  position:absolute;
+  left:30px;
+  top:15px;
+}
+
+#searchID input[type="text"] {
+  /*font-size:12pt;
+  padding:5px 8px;
+  height:32px;
+  border:1px solid #4d90fe;*/
+
+  font-size: 11pt;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-right: 0;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  padding: 0 7px;
+  width: 400px;
+  vertical-align: top;
+  z-index:100;
+}
+
+#searchID input[type="text"]:focus {
+  border-color: #4d90fe !important;
+  margin-left: -1px;
+  padding-left: 8px;
+  width: 401px;
+}
+
+#searchID button {
+  color:transparent;
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  border: 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  height: 32px;
+  left: 400px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  vertical-align: top;
+  width: 72px;
+  margin-left: 0;
+  z-index:-1;
+}
+
+#searchID button::before {
+  background: url(../images/search.png);
+  background-size: 17px;
+  content: "";
+  display: block;
+  height: 17px;
+  margin: 7.5px auto;
+  width: 17px;
 }
 
 * {
