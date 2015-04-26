@@ -39,7 +39,7 @@ def maps():
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID='',
-           error=0)
+           error=None)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
 #           center=json.dumps(center),
@@ -64,7 +64,7 @@ def torch_maps(torchID):
 
     if(user is not None):
         coords = user['locs']
-    else:   # if someone typed in a random torchID url
+    else:   # invalid torch ID
         return render_template('maps.html',
             coords=json.dumps(coords),
             center=json.dumps(center),
@@ -85,7 +85,7 @@ def torch_maps(torchID):
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID=torchID,
-           error=0)
+           error=None)
 
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():

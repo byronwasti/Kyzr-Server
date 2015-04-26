@@ -44,6 +44,16 @@
     -webkit-box-shadow: 0 0 0px 15px white inset;
 }
 
+#searchID p {
+  position:relative;
+  top: -25px;
+  left:295px;
+  color:red;
+  font-size:11pt;
+  display:block;
+  z-index:3;
+}
+
 #searchID button {
   color:transparent;
   background-color: #4d90fe;
