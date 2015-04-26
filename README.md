@@ -12,7 +12,7 @@ It is a cool project
 Download the app!
 
 ### Where can I check my Torch's location?
-<a href=www.thekyzrproject.com>thekyzrproject.com</a>
+<a href=www.thekyzrproject.com>www.thekyzrproject.com</a>
 
 
 ---
