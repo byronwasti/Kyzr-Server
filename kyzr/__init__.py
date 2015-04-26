@@ -29,6 +29,7 @@ def maps():
     center = [0,0]
     zoom = 3
     torchID = ''
+    error = False
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
@@ -36,6 +37,8 @@ def maps():
 
             if(user is not None):
                 coords = user['locs']
+            else:
+                error = True
             #else:
             #    return render_template('error.html')
     if coords:
@@ -55,7 +58,7 @@ def maps():
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID=torchID,
-           error=None)
+           error=error)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
 #           center=json.dumps(center),
