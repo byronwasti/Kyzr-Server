@@ -48,7 +48,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div id="map-canvas"></div>
     <form id="searchID" action="maps" method="POST">
       {% if error %}
-        <input type="text" name="id" value="{{error}}" placeholder="Enter a username or ID" autofocus onfocus="this.value = this.value;">
+        <input type="text" name="id" value="" placeholder="Enter a username or ID" autofocus onfocus="this.value = this.value;">
         <p>Enter a valid ID</p>
       {% else %}
         {% if torchID == '' %}
