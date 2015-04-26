@@ -3,19 +3,27 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple Polylines</title>
+    <title>Maps</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/maps.css">
+    <!--{% if error %}
     <style>
-      html, body {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
-      #map-canvas {
-        height: 90%;
-        margin: 0px;
-        padding: 0px
-      }
+    ::-webkit-input-placeholder {
+      color: red;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+      color: red;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: red;
+    }
+
+    :-ms-input-placeholder {  
+      color: red;
+    }
     </style>
+    {% endif %}-->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
 
@@ -53,12 +61,19 @@
     </script>
   </head>
   <body>
-    <center>
-      <form action="maps" method="POST">
-        <input type="text" name="id" placeholder="Search for an ID" /><br />
-        <input type="submit" value="Submit" />
-      </form>
-    </center>
     <div id="map-canvas"></div>
+    <form id="searchID" action="maps" method="POST">
+      {% if error %}
+        <input type="text" name="id" value="{{error}}" placeholder="Enter a username or ID" autofocus onfocus="this.value = this.value;">
+        <p>Enter a valid ID</p>
+      {% else %}
+        {% if torchID == '' %}
+          <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID" autofocus>
+        {% else %}
+          <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID">
+        {% endif %}
+      {% endif %}
+      <button type="submit">Submit</button>
+    </form>
   </body>
 </html>
