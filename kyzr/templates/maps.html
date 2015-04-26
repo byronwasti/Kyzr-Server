@@ -5,6 +5,25 @@
     <meta charset="utf-8">
     <title>Maps</title>
     <link rel="stylesheet" type="text/css" href="../static/css/maps.css">
+    {% if error != 0 %}
+    <style>
+    ::-webkit-input-placeholder {
+      color: red;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+      color: red;
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+      color: red;
+    }
+
+    :-ms-input-placeholder {  
+      color: red;
+    }
+    </style>
+    {% endif %}
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
 // This example creates a 2-pixel-wide red polyline showing
@@ -47,7 +66,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <body>
     <div id="map-canvas"></div>
     <form id="searchID" action="maps" method="POST">
-      <input type="text" name="id" size="40" placeholder="Enter a username or ID" autofocus>
+      {% if error == 0 %}
+        <input type="text" name="id" size="40" placeholder="Enter a username or ID" autofocus>
+      {% else %}
+        <input type="text" name="id" size="40" placeholder="{{error}}: Invalid ID" autofocus>
+      {% endif %}
       <button type="submit">Submit</button>
     </form>
   </body>

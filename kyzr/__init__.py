@@ -33,29 +33,50 @@ def maps():
             user = kyzr.find_user(request.form["id"])
 
             if(user is not None):
-                coords = user['locs']
+                return redirect('/maps/torch/'+request.form["id"])
             else:
-                #return "ID: " + id_request + " not found"
-                return render_template('error.html')
-    if coords:
-        lats = [ coords[j][0] for j in xrange(len(coords))]
-        lons = [ coords[j][1] for j in xrange(len(coords))]
-        center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
-        zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
-        for i in xrange(0,15,2):
-            if zoom < 0.005:
-                zoom = 15-i
-                break
-            zoom = zoom/7.0
+                return render_template('maps.html',
+                    coords=json.dumps(coords),
+                    center=json.dumps(center),
+                    zoom=json.dumps(zoom),
+                    error=request.form["id"])
 
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
-           zoom=json.dumps(zoom))
+           zoom=json.dumps(zoom),
+           error=0)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
 #           center=json.dumps(center),
 #           zoom=json.dumps(zoom))
+
+@app.route('/maps/torch/<ID>', methods=['GET', 'POST'])
+def torch_maps(ID):
+    coords = []
+    center = [0,0]
+    zoom = 3
+    user = kyzr.find_user(ID)
+    if(user is not None):
+        coords = user['locs']
+    else:
+        # should never happen
+        return render_template('error.html')
+    lats = [ coords[j][0] for j in xrange(len(coords))]
+    lons = [ coords[j][1] for j in xrange(len(coords))]
+    center = [ float(sum(i)/len(i)) for i in (lats, lons) ]
+    zoom = max( [ max(lats) - min(lats), max(lons)-min(lons)])
+    for i in xrange(0,15,2):
+        if zoom < 0.005:
+            zoom = 15-i
+            break
+        zoom = zoom/7.0
+
+    return render_template('maps.html',
+           coords=json.dumps(coords),
+           center=json.dumps(center),
+           zoom=json.dumps(zoom),
+           error=0)
 
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():
