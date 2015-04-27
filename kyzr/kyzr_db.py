@@ -39,7 +39,7 @@ class dbEditor:
                 True)
 
 
-    def add_user(self, pid, username):
+    def add_user(self, pid, username, lat, lng):
         self.users.update_one(
             {'_id':pid},
             {'$set':{'username':username}},
@@ -49,6 +49,10 @@ class dbEditor:
             {'_id':pid},
             {'$set':{'torch':pid}},
             True)
+
+        self.users.update_one(
+            {'_id':pid},
+            {'$push':{'locs':[lat, lng]}})
 
     def verify_user(self,pid, username):
         user = self.users.find_one({'_id':pid})
