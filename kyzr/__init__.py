@@ -33,12 +33,13 @@ def maps():
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
-            user = kyzr.find_user(request.form["id"])
 
-            if(user is not None):
-                coords = user['locs']
-            else:
-                error = True
+            if(torchID):
+                user = kyzr.find_user(torchID)
+                if(user is not None):
+                    coords = user['locs']
+                else:
+                    error = True
             #else:
             #    return render_template('error.html')
     if coords:
