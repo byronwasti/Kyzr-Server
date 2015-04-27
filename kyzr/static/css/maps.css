@@ -15,6 +15,7 @@
 }
 
 #searchID input[type="text"] {
+  /* most styling from Google Maps */
   position:relative;
   font-size: 11pt;
   background-color: #fff;
@@ -32,6 +33,7 @@
 }
 
 #searchID input[type="text"]:focus {
+  /* most styling from Google Maps */
   border-color: #4d90fe;
   margin-left: -1px;
   padding-left: 8px;
@@ -39,13 +41,11 @@
 }
 
 #searchID input[type="text"]:-webkit-autofill {
+  /* http://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
     -webkit-box-shadow: 0 0 0px 15px white inset;
 }
 
 #searchID p {
-  /*position:absolute;
-  top: 7px;
-  left:195px;*/
   position:relative;
   top:-2px;
   background-color:white;
@@ -62,6 +62,7 @@
 }
 
 #searchID button {
+  /* most styling from Google Maps */
   color:transparent;
   background-color: #4d90fe;
   background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
@@ -80,11 +81,13 @@
 }
 
 #searchID button:hover{
+  /* most styling from Google Maps */
   background-color: #357ae8;
   background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
 }
 
 #searchID button::before {
+  /* most styling and image from Google Maps */
   background: url(../images/search.png);
   background-size: 17px;
   content: "";
