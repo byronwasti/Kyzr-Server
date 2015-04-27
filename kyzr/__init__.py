@@ -85,15 +85,19 @@ def newuser():
     if request.method=="POST":
         print request.form.keys()
         if("pid" in request.form.keys() and 
-            "username" in request.form.keys()):
+            "username" in request.form.keys() and
+            "lat" in request.form.keys() and
+            "lng" in request.form.keys()):
 
             pid = request.form["pid"]
             username = request.form["username"]
+            lat = request.form["lat"]
+            lng = request.form["lng"]
 
             user = kyzr.verify_user(pid, username)
 
             if(user is None):
-                kyzr.add_user(pid, username)
+                kyzr.add_user(pid, username, lat, lng)
                 return "True"
             else:
                 return "False"
