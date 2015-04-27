@@ -39,6 +39,24 @@ class dbEditor:
                 True)
 
 
+    def add_user(self, pid, username):
+        self.users.update_one(
+            {'_id':pid},
+            {'$set':{'username':username}},
+            True)
+
+        self.users.update_one(
+            {'_id':pid},
+            {'$set':{'torch':pid}},
+            True)
+
+    def verify_user(self,pid, username):
+        user = self.users.find_one({'_id':pid})
+        if user is None:
+            user = self.users.find_one({'username':username.lower()})
+
+        return user
+
     def find_user(self,pid):
         user = self.users.find_one({'_id':pid})
         if user is None:
