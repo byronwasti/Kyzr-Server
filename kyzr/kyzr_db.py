@@ -38,6 +38,7 @@ class dbEditor:
                 {'$push':{'locs':[lat,lng]}},
                 True)
 
+
     def add_user(self, pid, username):
         self.users.update_one(
             {'_id':pid},
