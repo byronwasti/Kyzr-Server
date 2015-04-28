@@ -161,7 +161,7 @@ def currtorch():
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["id"]
             user = json.dumps(find_user(phone_id))
-            if user['username'] not None:
+            if user['username'] is not None:
                 return user['username']
 
     return "Current Torch"
