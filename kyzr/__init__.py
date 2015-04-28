@@ -156,7 +156,7 @@ def currtorch():
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
-            phone_id = request.form["id"]
+            phone_id = request.form["phone_id"]
 
             user = json.dumps(find_user(phone_id))
 
