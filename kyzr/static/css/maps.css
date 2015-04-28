@@ -1,0 +1,111 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+
+#map-canvas {
+    position: relative;
+    overflow: auto;
+    background-color: rgb(229, 227, 223);
+    height:100%;
+    z-index: 0;
+}
+
+#searchID {
+  position:absolute;
+  left:30px;
+  top:15px;
+}
+
+#searchID input[type="text"] {
+  /* most styling from Google Maps */
+  position:relative;
+  font-size: 11pt;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-right: 0;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  padding: 0 7px;
+  width: 268px;
+  z-index:3;
+}
+
+#searchID input[type="text"]:focus {
+  /* most styling from Google Maps */
+  border-color: #4d90fe;
+  margin-left: -1px;
+  padding-left: 8px;
+  width: 269px;
+}
+
+#searchID input[type="text"]:-webkit-autofill {
+  /* http://stackoverflow.com/questions/2781549/removing-input-background-colour-for-chrome-autocomplete */
+    -webkit-box-shadow: 0 0 0px 15px white inset;
+}
+
+#searchID p {
+  position:relative;
+  top:-2px;
+  background-color:white;
+  text-align: center;
+  color:red;
+  height:28px;
+  font-size:9pt;
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.0);
+  padding: 8px 7px;
+  display:block;
+  width:95px;
+  z-index:2;
+}
+
+#searchID button {
+  /* most styling from Google Maps */
+  color:transparent;
+  background-color: #4d90fe;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#4787ed);
+  border: 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  height: 32px;
+  left: 268px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  vertical-align: top;
+  width: 72px;
+  margin-left: 0;
+  z-index:1;
+}
+
+#searchID button:hover{
+  /* most styling from Google Maps */
+  background-color: #357ae8;
+  background-image: -webkit-linear-gradient(top,#4d90fe,#357ae8);
+}
+
+#searchID button::before {
+  /* most styling and image from Google Maps */
+  background: url(../images/search.png);
+  background-size: 17px;
+  content: "";
+  display: block;
+  height: 17px;
+  margin: 7.5px auto;
+  width: 17px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+}
