@@ -160,7 +160,7 @@ def currtorch():
 
             user = json.dumps(find_user(phone_id))
 
-            if user['username'] not None:
+            if user['username'] is not None:
                 return user['username']
 
     else:
