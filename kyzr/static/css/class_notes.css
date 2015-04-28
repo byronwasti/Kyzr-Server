@@ -13,7 +13,6 @@
 
 #content {
   height:100%;
-  background-color:#FFF;
   padding-bottom:25px;
 }
 
@@ -30,6 +29,19 @@
   left:0;
 }
 
+#footer a:link {
+  color:#212121;
+}
+#footer a:visited {
+  color:#212121;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer a:active {
+  text-decoration: underline;
+}
+
 .jumbotron {
   position:relative;
   padding-top:140px;
@@ -39,8 +51,15 @@
 
 .jumbotron h1 {
   color: #212121;
-  font-size: 34px;  
+  font-size: 42px;  
   font-weight: normal;
+}
+
+.jumbotron h2 {
+  color: #212121;
+  font-size: 18px;  
+  font-weight: bold;
+  margin:0;
 }
 
 .jumbotron p {
