@@ -157,14 +157,13 @@ def currtorch():
 
 
     if request.method=="POST":
-        return "FUCK YOU"
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["id"]
-            user = json.dumps(find_user(phone_id))
+            user = json.dumps(kyzr.find_user(phone_id))
             if user['username'] is not None:
                 return user['username']
 
-    return "Current Torch"
+    return "Cannot find username."
 
 if __name__ == "__main__":
     app.run()
