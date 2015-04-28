@@ -155,16 +155,15 @@ def stats():
 @app.route('/currtorch', methods=['GET', 'POST'])
 def currtorch():
 
-    if request.method=="POST":
-        if ("phone_id" in request.form.keys()):
-            phone_id = request.form["phone_id"]
 
-            user = json.dumps(find_user(phone_id))
+    # if request.method=="POST":
+    #     if ("phone_id" in request.form.keys()):
+    #         phone_id = request.form["id"]
+    #         user = json.dumps(find_user(phone_id))
+    #         if user['username'] not None:
+    #             return user['username']
 
-            if user['username'] is not None:
-                return user['username']
-
-    return "Error."
+    return "Current Torch"
 
 if __name__ == "__main__":
     app.run()
