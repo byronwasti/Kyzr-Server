@@ -158,9 +158,10 @@ def currtorch():
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
+            return "yes"
             phone_id = request.form["phone_id"]
-            user = json.dumps(kyzr.find_user(phone_id))
-            if user['username'] is not None:
+            user = kyzr.find_user(phone_id)
+            if user is not None:
                 return user['username']
 
     return "Cannot find username."
