@@ -139,6 +139,7 @@ def dbadd():
 def stats():
 
     if request.method=="POST":
+        return "Success"
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["id"]
 
@@ -148,8 +149,8 @@ def stats():
             stats = sc.compute_stats(user)
 
             return stats
-        else:
-            return "Request failed."
+    else:
+        return "Request failed."
 
 @app.route('/currtorch', methods=['GET', 'POST'])
 def currtorch():
@@ -163,8 +164,7 @@ def currtorch():
             if user['username'] is not None:
                 return user['username']
 
-    else:
-        return "Error."
+    return "Error."
 
 if __name__ == "__main__":
     app.run()
