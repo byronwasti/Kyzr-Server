@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request
+from StatsComputer import StatsComputer
 import json
 
 # pyMongodb wrapper
@@ -133,6 +134,37 @@ def dbadd():
             
             return "Success"
     return "Request method failed."
+
+@app.route('/stats', methods=['GET', 'POST'])
+def stats():
+
+    if request.method=="POST":
+        if ("phone_id" in request.form.keys()):
+            phone_id = request.form["id"]
+
+            user = json.dumps(find_user(phone_id))
+
+            sc = StatsComputer()
+            stats = sc.compute_stats(user)
+
+            return stats
+        else:
+            return "Request failed."
+
+@app.route('/currtorch', methods=['GET', 'POST'])
+def currtorch():
+
+    if request.method=="POST":
+        if ("phone_id" in request.form.keys()):
+            phone_id = request.form["id"]
+
+            user = json.dumps(find_user(phone_id))
+
+            if user['username'] not None:
+                return user['username']
+
+    else:
+        return "Error."
 
 if __name__ == "__main__":
     app.run()
