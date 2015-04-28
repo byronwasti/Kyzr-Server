@@ -143,7 +143,7 @@ def stats():
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["id"]
 
-            user = json.dumps(find_user(phone_id))
+            user = json.dumps(kyzr.find_user(phone_id))
 
             sc = StatsComputer()
             stats = sc.compute_stats(user)
