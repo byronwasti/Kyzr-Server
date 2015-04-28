@@ -91,8 +91,8 @@ def newuser():
 
             pid = request.form["pid"]
             username = request.form["username"]
-            lat = request.form["lat"]
-            lng = request.form["lng"]
+            lat = float(request.form["lat"])
+            lng = float(request.form["lng"])
 
             user = kyzr.verify_user(pid, username)
 
