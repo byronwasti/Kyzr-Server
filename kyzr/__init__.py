@@ -156,12 +156,13 @@ def stats():
 def currtorch():
 
 
-    # if request.method=="POST":
-    #     if ("phone_id" in request.form.keys()):
-    #         phone_id = request.form["id"]
-    #         user = json.dumps(find_user(phone_id))
-    #         if user['username'] not None:
-    #             return user['username']
+    if request.method=="POST":
+        return "FUCK YOU"
+        if ("phone_id" in request.form.keys()):
+            phone_id = request.form["id"]
+            user = json.dumps(find_user(phone_id))
+            if user['username'] not None:
+                return user['username']
 
     return "Current Torch"
 
