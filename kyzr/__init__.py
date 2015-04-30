@@ -30,6 +30,10 @@ def maps():
     zoom = 3
     torchID = ''
     error = False
+    dist = ''
+    username = '' 
+    num_tran = '' 
+
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
@@ -52,6 +56,10 @@ def maps():
                 zoom = 15-i
                 break
             zoom = zoom/7.0
+        stats = kyzr.compute_stats
+        dist = stats["distance"]
+        username = stats["username"]
+        num_tran = stats["num_transactions"]
 
 
     return render_template('maps.html',
@@ -59,6 +67,9 @@ def maps():
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID=torchID,
+           dist=json.dumps(dist),
+           torch_held=json.dumps(username),
+           num_tran=json.dumps(num_tran),
            error=error)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
