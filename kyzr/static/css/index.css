@@ -28,11 +28,12 @@
   bottom:0;
   left:0;
 }
-#footer a:link {
+#footer a {
   color:#212121;
 }
+#footer a:link {
+}
 #footer a:visited {
-  color:#212121;
 }
 #footer a:hover {
   text-decoration: underline;
@@ -83,11 +84,12 @@
   font-weight: bold;
 }
 
-.jumbotron a:link {
+.jumbotron a {
   color:#176399;
 }
+.jumbotron a:link {
+}
 .jumbotron a:visited {
-  color:#176399;
 }
 .jumbotron a:hover {
   text-decoration: underline;
