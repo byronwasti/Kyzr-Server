@@ -56,9 +56,13 @@
           <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID" autofocus>
         {% else %}
           <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID">
+          <br>
           <p>Distance Traveled : {{dist|safe}}</p>
+          <br>
           <p>Torch Holding : {{torch_held|safe}}</p>
+          <br>
           <p>Number of Transactions : {{num_tran|safe}}</p>
+          <br>
         {% endif %}
       {% endif %}
       <button type="submit">Submit</button>
