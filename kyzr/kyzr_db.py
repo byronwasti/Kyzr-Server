@@ -71,7 +71,7 @@ class dbEditor:
         return user
 
     def compute_stats(self, pid):
-        user = self.users.find_one({'_id':pid})
+        user = self.find_user(pid)
         stats = {}
         stats["USERNAME"] = user["username"]
         stats["USERID"] = pid
