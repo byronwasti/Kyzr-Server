@@ -77,7 +77,7 @@ class dbEditor:
         stats["num_transactions"] = len(user["locs"]-1)
         stats["torch"] = kyzr.find_one({'_id':user["torch"]})["username"]
 
-        return json.dumps(stats)
+        return stats
 
     def compute_distance( self, transactions):
         total_distance = 0.0
