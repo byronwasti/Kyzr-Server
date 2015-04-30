@@ -71,11 +71,11 @@ class dbEditor:
     def compute_stats(self, pid):
         user = self.users.find_one({'_id':pid})
         stats = {}
-        stats["username"] = user["username"]
-        stats["u_id"] = pid
-        stats["distance"] = self.compute_distance(user["locs"])
-        stats["num_transactions"] = len(user["locs"]-1)
-        stats["torch"] = kyzr.find_one({'_id':user["torch"]})["username"]
+        stats["USERNAME"] = user["username"]
+        stats["USERID"] = pid
+        stats["DISTANCE"] = self.compute_distance(user["locs"])
+        stats["NUMTRANSACTION"] = len(user["locs"])-1
+        stats["TORCH"] = kyzr.find_one({'_id':user["torch"]})
 
         return stats
 
