@@ -143,10 +143,8 @@ def stats():
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["phone_id"]
 
-            user = kyzr.find_user(phone_id)
-
-            sc = StatsComputer()
-            stats = sc.compute_stats(user)
+            #stats = sc.compute_stats(user)
+            stats = kyzr.computer_stats(phone_id)
 
             return stats
             

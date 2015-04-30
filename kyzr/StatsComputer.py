@@ -14,6 +14,7 @@ class StatsComputer:
         stats["u_id"] = u_id
         stats["distance"] = self.compute_distance_traveled(transactions)
         stats["num_transactions"] = len(transactions)
+        stats["torch"] = self.torch_held(user["torch"])
 
         return json.dumps(stats)
 
