@@ -57,9 +57,9 @@ def maps():
                 break
             zoom = zoom/7.0
         stats = kyzr.compute_stats(torchID)
-        dist = stats["DISTANCE"]
-        username = stats["TORCH"]
-        num_tran = stats["NUMTRANSACTION"]
+        dist = stats["distance"]
+        username = stats["username"]
+        num_tran = stats["num_transactions"]
 
 
     return render_template('maps.html',
@@ -155,7 +155,7 @@ def stats():
             #stats = sc.compute_stats(user)
             stats = kyzr.compute_stats(phone_id)
 
-            return stats
+            return json.dumps(stats)
             
     return "Request failed."
 
