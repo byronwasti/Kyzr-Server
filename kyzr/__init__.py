@@ -144,7 +144,7 @@ def stats():
             phone_id = request.form["phone_id"]
 
             #stats = sc.compute_stats(user)
-            stats = kyzr.computer_stats(phone_id)
+            stats = kyzr.compute_stats(phone_id)
 
             return stats
             
