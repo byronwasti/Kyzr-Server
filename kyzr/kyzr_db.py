@@ -77,7 +77,7 @@ class dbEditor:
         stats["USERID"] = pid
         stats["DISTANCE"] = self.compute_distance(user["locs"])
         stats["NUMTRANSACTION"] = len(user["locs"])-1
-        stats["TORCH"] = kyzr.find_one({'_id':user["torch"]})
+        stats["TORCH"] = self.find_user(user["torch"])
 
         return stats
 
