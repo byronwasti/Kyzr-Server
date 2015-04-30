@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-from StatsComputer import StatsComputer
 import json
 
 # pyMongodb wrapper
