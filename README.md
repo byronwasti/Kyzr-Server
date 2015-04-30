@@ -1,9 +1,11 @@
 [![alt tag](https://raw.githubusercontent.com/byronwasti/Kyzr-Server/master/kyzr/static/images/TheKyzrProject.png)](http://www.thekyzrproject.com/)
-===
 
 ---
 
 # Welcome to The Kyzr Project's Server Repo
+[The Android repo can be found here!](https://github.com/phuston/Kyzr)
+
+---
 
 ##FAQ
 
