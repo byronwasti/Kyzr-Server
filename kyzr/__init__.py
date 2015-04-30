@@ -56,7 +56,7 @@ def maps():
                 zoom = 15-i
                 break
             zoom = zoom/7.0
-        stats = kyzr.compute_stats
+        stats = kyzr.compute_stats(torchID)
         dist = stats["distance"]
         username = stats["username"]
         num_tran = stats["num_transactions"]
