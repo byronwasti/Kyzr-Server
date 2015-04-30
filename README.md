@@ -1,5 +1,8 @@
 [![alt tag](https://raw.githubusercontent.com/byronwasti/Kyzr-Server/master/kyzr/static/images/TheKyzrProject.png)](http://www.thekyzrproject.com/)
 ===
+
+---
+
 # Welcome to The Kyzr Project's Server Repo
 
 ##FAQ
@@ -13,6 +16,7 @@ Download the app!
 ### Where can I check my Torch's location?
 [thekyzrproject.com](www.thekyzrproject.com)
 
+---
 
 How the server is run
 ===
@@ -23,8 +27,11 @@ For mapping the travel of the torch we are using Google Maps API, with on-the-fl
 
 Updating the database is done via POST requests.
 
+---
+
 What do I need to run the server?
 ===
+
 ####This is for people who want to create their own implementation of the server code.
 ###The dependencies this project is built off of are:
   * python-2.7
