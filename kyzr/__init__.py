@@ -141,16 +141,16 @@ def stats():
     if request.method=="POST":
         return "Success"
         if ("phone_id" in request.form.keys()):
-            phone_id = request.form["id"]
+            phone_id = request.form["phone_id"]
 
-            user = json.dumps(kyzr.find_user(phone_id))
+            user = kyzr.find_user(phone_id)
 
             sc = StatsComputer()
             stats = sc.compute_stats(user)
 
             return stats
-    else:
-        return "Request failed."
+            
+    return "Request failed."
 
 @app.route('/currtorch', methods=['GET', 'POST'])
 def currtorch():
