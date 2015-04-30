@@ -18,16 +18,17 @@
 }
 
 #footer {
-  position:absolute;
+  /*position:absolute;*/
   background-color:#F44336;
   color:#1A1A1A;
   text-align:center;
   padding:2px;
-  margin-bottom:-25px;
+  margin-bottom:0px;
   height:25px;
   width:100%;
   bottom:25px;
   left:0;
+  font-size:16px;
 }
 
 #footer img {
@@ -40,6 +41,7 @@
 #footer a {
   font-weight: bold;
   color:#1A1A1A;
+  font-size:14px;
 }
 #footer a:link {
 }
@@ -55,8 +57,8 @@
 .jumbotron {
   position:relative;
   padding-top:140px;
-  padding-bottom:25px;
   min-height:100%;
+  font-size:16px;
 }
 
 .jumbotron h1 {
@@ -97,7 +99,7 @@
 
 .jumbotron a {
   color:#176399;
-  font-size: 14px;
+  font-size: 16px;
 }
 .jumbotron a:link {
 }
