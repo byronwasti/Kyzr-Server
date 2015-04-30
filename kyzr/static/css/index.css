@@ -21,7 +21,7 @@
   background-color:#F44336;
   color:#1A1A1A;;
   text-align:center;
-  padding:3px;
+  padding:2px;
   margin-bottom:-25px;
   height:25px;
   width:100%;
@@ -75,26 +75,34 @@
 }
 
 .jumbotron h1 {
-  color: #212121;
+  color: #373737;
   font-size: 42px;  
   font-weight: normal;
 }
 
 .jumbotron h2 {
-  color: #212121;
+  color: #373737;
+  font-size: 34px;  
+  font-weight: normal;
+  margin:0;
+}
+
+.jumbotron h3 {
+  color: #434343;
   font-size: 18px;  
   font-weight: bold;
   margin:0;
 }
 
 .jumbotron p {
-  color: #212121;
-  font-size: 14px;
-  font-weight: bold;
+  color: #434343;
+  font-size: 16px;
+  font-weight: normal;
 }
 
 .jumbotron a {
   color:#176399;
+  font-size: 14px;
 }
 .jumbotron a:link {
 }

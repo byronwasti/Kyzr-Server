@@ -14,7 +14,7 @@
 #content {
   position:relative;
   height:100%;
-  margin: 25px 20%;
+  margin: 40px 20%;
 }
 
 #footer {
@@ -22,7 +22,7 @@
   background-color:#F44336;
   color:#1A1A1A;
   text-align:center;
-  padding:3px;
+  padding:2px;
   margin-bottom:-25px;
   height:25px;
   width:100%;
