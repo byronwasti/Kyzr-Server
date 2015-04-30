@@ -149,7 +149,6 @@ def dbadd():
 def stats():
 
     if request.method=="POST":
-        return "Success"
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["phone_id"]
 
