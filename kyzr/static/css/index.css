@@ -19,7 +19,7 @@
 
 #footer {
   background-color:#F44336;
-  color:black;
+  color:#1A1A1A;;
   text-align:center;
   padding:3px;
   margin-bottom:-25px;
@@ -28,8 +28,17 @@
   bottom:0;
   left:0;
 }
+
+#footer img {
+  position:relative;
+  top:2px;
+  height:15px;
+  width:auto;
+}
+
 #footer a {
-  color:#212121;
+  color:#1A1A1A;
+  font-weight:bold;
 }
 #footer a:link {
 }
