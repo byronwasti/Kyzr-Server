@@ -84,7 +84,7 @@ def verify():
         if ("search_id" in request.form.keys()):
             user = kyzr.find_user(request.form["search_id"])
 
-            if(user is None):
+            if(user is None and ' ' not in user):
                 return "False"
             return "True"
     return "Invalid Search"
