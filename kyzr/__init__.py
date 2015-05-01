@@ -104,6 +104,8 @@ def newuser():
             username = request.form["username"]
             lat = float(request.form["lat"])
             lng = float(request.form["lng"])
+            if ' ' in username:
+                return "False"
 
             user = kyzr.verify_user(pid, username)
 
