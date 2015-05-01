@@ -89,7 +89,7 @@ def verify():
 
             if(user is None):
                 return "False"
-            return "User already exists."
+            return "True"
     return "Invalid Search"
 
 
