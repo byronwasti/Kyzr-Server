@@ -64,8 +64,10 @@ class dbEditor:
         return user
 
     def find_user(self,pid):
-        user = self.users.find_one({'torch':pid})
-        
+        user = self.users.find_one({'_id':pid})
+        if user is None:
+            user = self.users.find_one({'username':pid.lower()})
+
         return user
 
     def compute_stats(self, pid):
