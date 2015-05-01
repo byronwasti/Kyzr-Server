@@ -88,6 +88,8 @@ class dbEditor:
             loc2 = transactions[i+1]
             total_distance += self.haversine(loc1, loc2)
 
+        total_distance = "{0:.2f}".format(total_distance) + "mi."
+
         return total_distance
 
     def haversine(self, loc1, loc2):
