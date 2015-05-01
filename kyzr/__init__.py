@@ -168,7 +168,9 @@ def currtorch():
             phone_id = request.form["phone_id"]
             user = kyzr.find_user(phone_id)
             if user is not None:
-                return user['torch']
+                torch = user['torch']
+                torchowner = kyzr.find_user(torch)
+                return torchowner['username']
 
     return "Cannot find username."
 
