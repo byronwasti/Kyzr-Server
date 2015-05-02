@@ -57,9 +57,9 @@ def maps():
                 break
             zoom = zoom/7.0
         stats = kyzr.compute_stats(torchID)
-        dist = stats["DISTANCE"]
-        username = stats["TORCH"]
-        num_tran = stats["NUMTRANSACTION"]
+        dist = stats['DISTANCE']
+        username = stats['TORCH']
+        num_tran = stats['NUMTRANSACTION']
 
 
     return render_template('maps.html',
@@ -67,9 +67,9 @@ def maps():
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID=torchID,
-           dist=json.dumps(dist),
-           torch_held=json.dumps(username),
-           num_tran=json.dumps(num_tran),
+           dist=dist,
+           torch_held=username,
+           num_tran=num_tran,
            error=error)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 

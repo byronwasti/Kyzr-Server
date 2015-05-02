@@ -73,11 +73,11 @@ class dbEditor:
     def compute_stats(self, pid):
         user = self.find_user(pid)
         stats = {}
-        stats["USERNAME"] = user["username"]
-        stats["USERID"] = pid
-        stats["DISTANCE"] = self.compute_distance(user["locs"])
-        stats["NUMTRANSACTION"] = len(user["locs"])-1
-        stats["TORCH"] = self.find_user(user["torch"])["username"]
+        stats['USERNAME'] = user['username']
+        stats['USERID'] = pid
+        stats['DISTANCE'] = self.compute_distance(user['locs'])
+        stats['NUMTRANSACTION'] = len(user['locs'])-1
+        stats['TORCH'] = self.find_user(user['torch'])['username']
 
         return stats
 
@@ -88,7 +88,7 @@ class dbEditor:
             loc2 = transactions[i+1]
             total_distance += self.haversine(loc1, loc2)
 
-        total_distance = "{0:.2f}".format(total_distance) + "mi."
+        total_distance = '{0:.2f}'.format(total_distance) + 'mi.'
 
         return total_distance
 
