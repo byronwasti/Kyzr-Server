@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request
 import json
 
 # pyMongodb wrapper
@@ -30,6 +30,10 @@ def maps():
     zoom = 3
     torchID = ''
     error = False
+    dist = ''
+    username = '' 
+    num_tran = '' 
+
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
@@ -52,6 +56,10 @@ def maps():
                 zoom = 15-i
                 break
             zoom = zoom/7.0
+        stats = kyzr.compute_stats(torchID)
+        dist = stats["DISTANCE"]
+        username = stats["TORCH"]
+        num_tran = stats["NUMTRANSACTION"]
 
 
     return render_template('maps.html',
@@ -59,6 +67,9 @@ def maps():
            center=json.dumps(center),
            zoom=json.dumps(zoom),
            torchID=torchID,
+           dist=json.dumps(dist),
+           torch_held=json.dumps(username),
+           num_tran=json.dumps(num_tran),
            error=error)
 #   return render_template('debug.html', 
 #           coords=json.dumps(coords), 
@@ -71,11 +82,14 @@ def verify():
 
     if request.method=="POST":
         if ("search_id" in request.form.keys()):
+            if( ' ' in request.form["search_id"]):
+                return "Username cannot contain spaces."
+
             user = kyzr.find_user(request.form["search_id"])
 
             if(user is None):
                 return "False"
-            return "True"
+            return "User already exists."
     return "Invalid Search"
 
 
@@ -85,15 +99,21 @@ def newuser():
     if request.method=="POST":
         print request.form.keys()
         if("pid" in request.form.keys() and 
-            "username" in request.form.keys()):
+            "username" in request.form.keys() and
+            "lat" in request.form.keys() and
+            "lng" in request.form.keys()):
 
             pid = request.form["pid"]
             username = request.form["username"]
+            lat = float(request.form["lat"])
+            lng = float(request.form["lng"])
+            if ' ' in username:
+                return "False"
 
             user = kyzr.verify_user(pid, username)
 
             if(user is None):
-                kyzr.add_user(pid, username)
+                kyzr.add_user(pid, username, lat, lng)
                 return "True"
             else:
                 return "False"
@@ -130,5 +150,34 @@ def dbadd():
             return "Success"
     return "Request method failed."
 
+@app.route('/stats', methods=['GET', 'POST'])
+def stats():
+
+    if request.method=="POST":
+        if ("phone_id" in request.form.keys()):
+            phone_id = request.form["phone_id"]
+
+            #stats = sc.compute_stats(user)
+            stats = kyzr.compute_stats(phone_id)
+
+            return json.dumps(stats)
+            
+    return "Request failed."
+
+@app.route('/currtorch', methods=['GET', 'POST'])
+def currtorch():
+
+
+    if request.method=="POST":
+        if ("phone_id" in request.form.keys()):
+            phone_id = request.form["phone_id"]
+            user = kyzr.find_user(phone_id)
+            if user is not None:
+                torch = user['torch']
+                torchowner = kyzr.find_user(torch)
+                return torchowner['username']
+
+    return "Cannot find username."
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
