@@ -83,6 +83,7 @@ class dbEditor:
 
         torcher = self.find_torch(pid)
         if torcher is None:
+            stats['TORCH'] = 'NONE FOUND'
             return stats
 
         stats['TORCH'] = torcher['username']
