@@ -80,8 +80,12 @@ class dbEditor:
         stats['USERID'] = pid
         stats['DISTANCE'] = self.compute_distance(user['locs'])
         stats['NUMTRANSACTION'] = len(user['locs'])-1
-        stats['TORCH'] = self.find_torch(pid)['username']
 
+        torcher = self.find_torch(pid)
+        if torcher is None:
+            return stats
+
+        stats['TORCH'] = torcher['username']
         return stats
 
     def compute_distance( self, transactions):
