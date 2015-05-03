@@ -81,7 +81,7 @@ class dbEditor:
         stats['DISTANCE'] = self.compute_distance(user['locs'])
         stats['NUMTRANSACTION'] = len(user['locs'])-1
 
-        torcher = self.find_torch(pid)
+        torcher = self.find_torch(user['_id'])
         if torcher is None:
             stats['TORCH'] = 'NONE FOUND'
             return stats
