@@ -16,26 +16,55 @@
 
       <div id="content">
         <h2>What is Kyzr?</h2>
-        <h3>Results</h3>
-        <p>Though the details will be different for each project, show off what your software can do! Screenshots and video are likely helpful. Include graphs or other data if appropriate.</p>
+        <p>Kyzr is a virtual torch-passing application that aims to create a global interconnected community around the adventure of meeting like-minded travelers and watching a piece of your identity travel around the world.</p>
         <br>
         <hr>
         <br>
 
         <h2>Our Story</h2>
-        <h3>Big Idea/Goal/Why did we do this? Project evolution/narrative</h3>
-        <p>Quick and easily understandable explanation of what your project is all about. Consider including a narrative or example use case, e.g. via screenshots, video, or story boarding.</p>
-        <p>Tell an illustrative story about the process of creating your software, showing how it improved over time. This may draw upon what you learned from the two peer technical reviews. Consider the use of screenshots or other tools to demonstrate how your project evolved.</p>
+        <p>Our project is all about buzzwords. A full-stack implementation of an Android-interfacing application, with industrial grade database software and a software stack that represents how projects are done in the real world. From the beginning we wanted this project to be implemented like an actual application such as Twitter or Facebook. We also wanted to emulate how they do it, and we used (mostly) good git practices such as pull requests and branches, and used an Agile workflow using Trello.</p>
+        <p>Over time, our project evolved into something we actually cared about. As we continued development, we became more excited by the features that we could add. Through design reviews, we came up with ideas of adding features such as usernames and torch statistics. We also ideated a lot on the User Interface of both the website and the Android app. The combination of these features and updated UI turned the project from something that was simply a class project into something that we were really excited about.</p>
+        <p>Below is an early representation of our website UI:</p>
+        <img src="../static/images/early.png" style="width:100%;height:100%;"/><br />
+        <p>After a lot of updating on the UI, our website now looks like this:</p>
+        <img src="../static/images/now.png" style="width:100%;height:100%;" />
+        <p> As we became more excited, we began implementing more features, as seen through our git commits. The top graph represents the github repository associated with the Android app and the bottom graph represents our server.</p><br />
+        <img src="../static/images/github.png" style="width:100%;height:100%;" />
         <br>
         <hr>
         <br>
 
         <h2>How it Works</h2>
         <h3>Implementation information</h3>
-        <p>Code doesn't tell a story by itself. Use more effective methods such as flowcharts and architectural or class diagrams to explain how your code works. You could consider including or linking to snippets of code to highlight a particularly crucial segment.</p>
+        <p>1. Two NFC-equipped Android phones with Kyzr installed bump each other</p>
+        <p>2. User 1 taps their screen to swap torches with User 2</p>
+        <p>3. User 2’s phone now holds its original ID and User 1’s ID</p>
+        <p>4. User 2’s phone contacts the server, which tells the database that these two phones have switched IDs</p>
+        <p>5. The server also adds information to each user’s database entry about the transaction such as latitude and longitude</p>
+        <p>6. User 1 and 2 go to the website and enter their IDs (or usernames!)</p>
+        <p>7. The server retrieves all of their transactions from the database, and displays it on a map along with statistics about each user’s torch!</p>
         <br>
+        <h3>On the Server Side</h3>
+        <p>Our server is a full-stack implementation of a LAMP server setup. We are running Debian 7, Apache server, Mongodb and python-Flask.</p>
+        <p>For mapping the travel of the torch we are using Google Maps API, with on-the-fly javascript creation.</p>
+        <p>Updating the database is done via POST requests.</p>
+        <br />
         <hr>
         <br>
+
+        <h2>Attributions and External Resources</h2>
+        <p>pyMongo</p>
+        <p>Mongodb</p>
+        <p>python-Flask</p>
+        <p>Apache2-server</p>
+        <p>Google maps API</p>
+        <p>Google styling (material)</P>
+        <p><a href="https://github.com/futuresimple/android-floating-action-button">Floating Action Button Library</a></p>
+        <p><a href="http://materializecss.com/">http://materializecss.com/</a></p>
+        <br />
+        <hr>
+        <br />
+
 
         <h2>Resources</h2>
         <h3>Documents</h3>
