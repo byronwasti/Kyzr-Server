@@ -180,4 +180,4 @@ def currtorch():
     return "Cannot find username."
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
