@@ -89,7 +89,7 @@ def verify():
 
             if(user is None):
                 return "False"
-            return "User already exists."
+            return "True"
     return "Invalid Search"
 
 
@@ -104,7 +104,7 @@ def newuser():
             "lng" in request.form.keys()):
 
             pid = request.form["pid"]
-            username = request.form["username"]
+            username = request.form["username"].lower()
             lat = float(request.form["lat"])
             lng = float(request.form["lng"])
             if ' ' in username:

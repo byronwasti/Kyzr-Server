@@ -69,6 +69,9 @@ class dbEditor:
             user = self.users.find_one({'username':pid.lower()})
 
         return user
+    def find_torch(self,tid):
+        user = self.users.find_one({'torch':tid})
+        return user
 
     def compute_stats(self, pid):
         user = self.find_user(pid)
@@ -77,8 +80,13 @@ class dbEditor:
         stats['USERID'] = pid
         stats['DISTANCE'] = self.compute_distance(user['locs'])
         stats['NUMTRANSACTION'] = len(user['locs'])-1
-        stats['TORCH'] = self.find_user(user['torch'])['username']
 
+        torcher = self.find_torch(user['_id'])
+        if torcher is None:
+            stats['TORCH'] = 'NONE FOUND'
+            return stats
+
+        stats['TORCH'] = torcher['username']
         return stats
 
     def compute_distance( self, transactions):
