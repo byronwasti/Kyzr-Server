@@ -83,6 +83,9 @@ def verify():
 
     if request.method=="POST":
         if ("search_id" in request.form.keys()):
+            for i in string.punctuation:
+                if i in username:
+                    return "Username contains an invalid character."
             if( ' ' in request.form["search_id"]):
                 return "Username cannot contain spaces."
 
@@ -90,7 +93,7 @@ def verify():
 
             if(user is None):
                 return "False"
-            return "True"
+            return "Username already exists"
     return "Invalid Search"
 
 
@@ -108,12 +111,14 @@ def newuser():
             username = request.form["username"].lower()
             lat = float(request.form["lat"])
             lng = float(request.form["lng"])
+            '''
             for i in string.punctuation:
                 if i in username:
                     return "False"
 
             if ' ' in username:
                 return "False"
+            '''
 
             user = kyzr.verify_user(pid, username)
 
