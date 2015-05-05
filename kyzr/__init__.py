@@ -83,11 +83,11 @@ def verify():
 
     if request.method=="POST":
         if ("search_id" in request.form.keys()):
-            for i in string.punctuation:
-                if i in request.form["search_id"]:
-                    return "Username contains an invalid character."
-            if( ' ' in request.form["search_id"]):
-                return "Username cannot contain spaces."
+            # for i in string.punctuation:
+            #     if i in request.form["search_id"]:
+            #         return "Username contains an invalid character."
+            # if( ' ' in request.form["search_id"]):
+            #     return "Username cannot contain spaces."
 
             user = kyzr.find_user(request.form["search_id"])
 
