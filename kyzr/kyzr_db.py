@@ -1,11 +1,14 @@
 from pymongo import MongoClient
 import json
 from math import radians, cos, sin, asin, sqrt
+import string
 
 class dbEditor:
     def __init__(self):
         self.client = MongoClient()
         self.users = self.client.kyzr.users
+
+
     def swap_torch (self,pid1, pid2, lat, lng):
         pid1_d = self.users.find_one({'_id':pid1})
         pid2_d = self.users.find_one({'_id':pid2})
