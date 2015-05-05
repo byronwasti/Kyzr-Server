@@ -22,11 +22,11 @@
   background-color:#F44336;
   color:#1A1A1A;
   text-align:center;
-  padding:4px;
+  padding:1px;
   margin-bottom:0px;
-  height:30px;
+  height:25px;
   width:100%;
-  bottom:0;
+  bottom:0px;
   left:0;
   font-size:16px;
 }
@@ -39,7 +39,7 @@
 }
 
 #footer a {
-  font-weight: normal;
+  font-weight: bold;
   color:#1A1A1A;
   font-size:14px;
 }
