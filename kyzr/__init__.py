@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import json
+import string
 
 # pyMongodb wrapper
 from kyzr_db import dbEditor
@@ -58,7 +59,7 @@ def maps():
             zoom = zoom/7.0
         stats = kyzr.compute_stats(torchID)
         dist = stats['DISTANCE']
-        username = stats['TORCH']
+        username = stats['CURRENTOWNER']
         num_tran = stats['NUMTRANSACTION']
 
 
@@ -107,8 +108,9 @@ def newuser():
             username = request.form["username"].lower()
             lat = float(request.form["lat"])
             lng = float(request.form["lng"])
-            if ' ' in username:
-                return "False"
+            for i in string.punctuation:
+                if i in username:
+                    return "False"
 
             user = kyzr.verify_user(pid, username)
 
