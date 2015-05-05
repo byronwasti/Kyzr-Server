@@ -112,6 +112,9 @@ def newuser():
                 if i in username:
                     return "False"
 
+            if ' ' in username:
+                return "False"
+
             user = kyzr.verify_user(pid, username)
 
             if(user is None):
