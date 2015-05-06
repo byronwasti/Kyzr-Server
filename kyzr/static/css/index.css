@@ -11,19 +11,30 @@
   padding-top: 1rem;
 }
 
+#header img {
+   height: 112px;
+   width: auto;
+}
+
 #content {
   height:100%;
   min-height:200px;                       
   /*background-color:#D3D3D3;*/
 }
 
+#google-play {
+  position:absolute;
+  right:72px;
+  bottom:46px;
+}
+
 #footer {
   background-color:#F44336;
   color:#1A1A1A;
   text-align:center;
-  padding:1px;
+  padding:4px;
   margin-bottom:0px;
-  height:25px;
+  height:30px;
   width:100%;
   bottom:0;
   left:0;
@@ -39,7 +50,7 @@
 
 #footer a {
   color:#1A1A1A;
-  font-weight:bold;
+  font-weight:normal;
   font-size:14px;
 }
 #footer a:link {
@@ -68,7 +79,7 @@
 .jumbotron {
   position:absolute;
   padding-top:140px;
-  padding-bottom:25px;
+  padding-bottom:30px;
   min-width:400px;
   top:0;;
   bottom:0;
@@ -115,11 +126,6 @@
 }
 .jumbotron a:active {
   text-decoration: underline;
-}
-
-.jumbotron img {
-   height: 112px;
-   width: auto;
 }
 
 * {
