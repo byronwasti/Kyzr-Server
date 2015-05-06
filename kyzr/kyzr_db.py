@@ -141,15 +141,19 @@ class dbEditor:
     def update_queue(self, pid1, pid2):
         comstat = self.find_user('comstat')
         cur_num = comstat['#']
+        new_num = int((cur_num+1)%5)
 
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{'#': (cur_num+1)%5 }},
+            {'$set':{'#': new_num }},
             True)
         USERS = pid1+','+pid2
+
+        cur_num = str(cur_num)
+
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{ str(cur_num):USERS }},
+            {'$set':{ cur_num:USERS }},
             True)
 
 
