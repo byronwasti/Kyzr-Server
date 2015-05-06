@@ -10,7 +10,10 @@
     <title>Maps</title>
     <link rel="stylesheet" type="text/css" href="../static/css/maps.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script>
     <script>
+
+    var infowindow = null;
 
       function initialize() {
         var center_coords = {{center|safe}}
@@ -27,7 +30,7 @@
         var gMapsCoords = [];
         var safeCoords = {{coords|safe}}
         for(i=0; i < safeCoords.length; i++) {
-          gMapsCoords[gMapsCoords.length] = new google.maps.LatLng(safeCoords[i][0], safeCoords[i][1]);
+          gMapsCoords[i] = new google.maps.LatLng(safeCoords[i][0], safeCoords[i][1]);
         }
 
         var path = new google.maps.Polyline({
