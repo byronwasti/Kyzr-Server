@@ -4,6 +4,7 @@ import json
 # Supported characters for usernames
 import string
 ACC = string.ascii_letters + string.digits + "-_"
+CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole']
 
 # pyMongodb wrapper
 from kyzr_db import dbEditor
@@ -92,6 +93,9 @@ def verify():
             for i in request.form["search_id"]:
                 if i not in ACC:
                     return "Not valid characters"
+            for i in CURSE_WORDS:
+                if i in request.form["search_id"]:
+                    return "Naughty word!"
 
             user = kyzr.find_user(request.form["search_id"])
 
