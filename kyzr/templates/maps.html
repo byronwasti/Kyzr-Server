@@ -13,7 +13,6 @@
     <script>
 
     var infowindow = null;
-    var content = 'holding...';
 
       function initialize() {
         var center_coords = {{center|safe}}
@@ -52,9 +51,54 @@
         }
 
         geocoder = new google.maps.Geocoder();
-        infowindow = new google.maps.InfoWindow({content: content});
+        infowindow = new google.maps.InfoWindow({content: 'holding...'});
         //infowindows = [];
 
+        getAdresses(markers);
+
+        function getAdresses(markers) {
+          var addresses = [];
+          for(var i=0; i < markers.length; i++) {
+            geocoder.geocode({'latLng':markers[i].getPosition()}, function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                  addresses.push(results[1].formatted_address);
+                } else {
+                  //alert('No results found');
+                  addresses.push('-1');
+                }
+              } else {
+                if(status=="ZERO_RESULTS") {
+                  //alert(status);
+                  addresses.push('-1');
+                } else {
+                  alert('Geocoder failed due to: ' + status);
+                }
+                if(addresses.length == markers.length) {
+                    setContent(addresses)
+                }
+              }
+            });
+          }
+        }
+
+        function setContent(addresses) {
+          for(var i=0; i < markers.length; i++) {
+            if(addresses[i]=='-1') {
+              markers[i].content = String(markers[i].getPosition().lat().toFixed(3)) + ", " 
+                + String(markers[i].getPosition().lng().toFixed(3));
+            } else {
+              markers[i].content = addresses[i];
+            }
+            google.maps.event.addListener(markers[i], 'mouseover', function() {
+              infowindow.setContent(this.content)
+              infowindow.open(map, this);
+            });
+            google.maps.event.addListener(markers[i], 'mouseout', function() {
+              infowindow.close();
+            });
+          }
+        }
 
         /*function makeInfoWindow(callback) {
           geocoder.geocode({'latLng': markers[i].getPosition()}, function(results, status) {
@@ -74,7 +118,7 @@
           });
         }*/
 
-        /*for(i=0; i < markers.length; i++) {
+        /*for(var i=0; i < markers.length; i++) {
           makeInfoWindow(function(status, infowindow) {
             //alert(infowindow.getContent());
             //alert(markers[0].getPosition());
@@ -87,7 +131,8 @@
           });
         }*/
 
-        for(i=0; i < markers.length; i++) {
+        //        ALMOST WORKING!!!!!!!!!!!!!!!!!!!!
+        /*for(var i=0; i < markers.length; i++) {
           geocoder.geocode({'latLng': markers[i].getPosition()}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               if (results[1]) {
@@ -108,9 +153,31 @@
           google.maps.event.addListener(markers[i], 'mouseout', function() {
             infowindow.close();
           });
-        }
+        }*/
+
+        /*var markers = [];
+        for(var i=0; i < gMapsCoords.length; i++) { // loop through coordinates
+          geocoder.geocode({'latLng': gMapsCoords[i]}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              if (results[1]) {
+                //infowindow = new google.maps.InfoWindow({content: results[1].formatted_address});
+                //markers[i].content = results[1].formatted_address;
+                markers.push(new google.maps.Marker({
+                  position: gMapsCoords[i],
+                  map: map,
+                  content: results[1].formatted_address
+                }));
+              } else {
+                alert('No results found');
+              }
+            } else {
+              alert('Geocoder failed due to: ' + status);
+              //infowindows[i] = new google.maps.InfoWindow({content: markers[i].getPosition()})
+            }
+          }); // end geocode request
+        }*/
         
-        /*for(i=0; i < markers.length; i++) {
+        /*for(var i=0; i < markers.length; i++) {
           geocoder.geocode({'latLng': markers[i].getPosition()}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               if (results[1]) {
@@ -132,7 +199,7 @@
           });*/
         //}
 
-        /*for(i=0; i < markers.length; i++) {
+        /*for(var i=0; i < markers.length; i++) {
           google.maps.event.addListener(markers[i], 'mouseover', function() {
             geocoder.geocode({'latLng': markers[i].getPosition()}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -153,15 +220,6 @@
           });
         }*/
       }
-
-      function bindInfoWindow(marker, map, infowindow) {
-        google.maps.event.addListener(marker, 'mouseover', function() {
-          infowindow.open(map, marker);
-        });
-        google.maps.event.addListener(marker, 'mouseout', function() {
-          infowindow.close();
-        });
-      } 
 
       google.maps.event.addDomListener(window, 'load', initialize);
 
