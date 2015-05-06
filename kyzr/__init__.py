@@ -67,6 +67,7 @@ def maps():
         num_tran = stats['NUMTRANSACTION']
         torch = kyzr.find_user(stats['TORCH'])['username']
 
+    queue = kyzr.get_queue()#[[u'123456789012', u'andrew'], [u'andrew', u'patrick'], [u'mem', u'patrick'], [u'andrew', u'bitch'], [u'andrew', u'bitch']]
 
     return render_template('maps.html',
            coords=json.dumps(coords),
@@ -77,6 +78,7 @@ def maps():
            torch_holding=torch,
            torch_held=torcher,
            num_tran=num_tran,
+           queue=queue,
            error=error)
 
 # Used by Android app to see if username is

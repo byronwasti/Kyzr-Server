@@ -137,6 +137,51 @@
   margin-right:11px;
 }
 
+#queue {
+  position:absolute;
+  top:50px;
+  right:0;
+  background-color: #FFF;
+  width:auto;
+  padding:3px 7px;
+  font-weight: 300;
+  font-size:15px;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+#queue h1 {
+  color: #000;
+  font-size: 24px;  
+  font-weight: normal;
+  margin:0;
+  text-align: left;
+}
+
+#queue .leftuser {
+  position:relative;
+  display: inline-block;
+  text-align: right;
+  width:100px;
+}
+
+#queue .rightuser {
+  position:relative;
+  display: inline-block;
+  text-align: left;
+  width:100px;
+}
+
+#queue img {
+  position:relative;
+  width: 15px;
+  height:auto;
+  top:3px;
+  /*opacity:0.55;*/
+  margin-left:6px;
+  margin-right:6px;
+}
+
 /* sketchily removes x on infowindow */
 .gm-style-iw + div {
   display: none;
