@@ -149,7 +149,7 @@ class dbEditor:
 
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{ str(cur_num):pid1 + ',' + pid2 }},
+            {'$set':{ str(cur_num): [pid1, pid2] }},
             True)
 
 
