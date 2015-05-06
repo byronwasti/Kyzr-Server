@@ -43,10 +43,10 @@ class dbEditor:
                 {'$push':{'locs':[lat,lng]}},
                 True)
 
-        comstat_tran = self.find_user('comstat')['total_trans']
+        comstat_tran = int(self.find_user('comstat')['total_trans'] + 1)
         self.users.update_one(
                 {'_id':'comstat'},
-                {'$set':{'total_trans':comstat_tran+1}}
+                {'$set':{'total_trans':comstat_tran}}
         )
 
         self.update_queue(pid1, pid2)
