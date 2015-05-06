@@ -43,6 +43,14 @@ class dbEditor:
                 {'$push':{'locs':[lat,lng]}},
                 True)
 
+        comstat_tran = self.find_user('comstat')['total_trans']
+        self.users.update_one(
+                {'_id':'comstat'},
+                {'$set':{'total_trans':comstat_tran+1}}
+        )
+
+        self.update_queue(pid1, pid2)
+
 
     def add_user(self, pid, username, lat, lng):
         self.users.update_one(
@@ -59,6 +67,7 @@ class dbEditor:
             {'_id':pid},
             {'$push':{'locs':[lat, lng]}})
 
+
     def verify_user(self,pid, username):
         user = self.users.find_one({'_id':pid})
         if user is None:
@@ -66,15 +75,19 @@ class dbEditor:
 
         return user
 
+
     def find_user(self,pid):
         user = self.users.find_one({'_id':pid})
         if user is None:
             user = self.users.find_one({'username':pid.lower()})
 
         return user
+
+
     def find_torch(self,tid):
         user = self.users.find_one({'torch':tid})
         return user
+
 
     def compute_stats(self, pid):
         user = self.find_user(pid)
@@ -93,6 +106,7 @@ class dbEditor:
         stats['CURRENTOWNER'] = torcher['username']
         return stats
 
+
     def compute_distance( self, transactions):
         total_distance = 0.0
         for i in range(len(transactions)-1):
@@ -103,6 +117,7 @@ class dbEditor:
         total_distance = "{0:.2f}".format(total_distance) + " mi."
 
         return total_distance
+
 
     def haversine(self, loc1, loc2):
         """
@@ -122,3 +137,24 @@ class dbEditor:
         rad_earth = 3956 # Radius of earth in kilometers. Use 3956 for miles
         return c * rad_earth
 
+
+    def update_queue(self, pid1, pid2):
+        comstat = self.find_user('comstat')
+        cur_num = comstat['#']
+
+        self.users.update_one(
+            {'_id':'comstat'},
+            {'$set':{'#': (cur_num+1)%5 }},
+            True)
+
+        self.users.update_one(
+            {'_id':'comstat'},
+            {'$set':{ str(cur_num):pid1 + ',' + pid2 }},
+            True)
+
+
+    def get_queue(self):
+        comstat = self.find_user('comstat')
+        cur_num = comstat['#']
+
+        return [ comstat[str[(i+cur_num)%5] ] for i in xrange(5)] 

@@ -192,5 +192,11 @@ def currtorch():
 
     return "Cannot find username."
 
+@app.route('/debug')
+def debugging():
+    queue = kyzr.get_queue()
+    return render_template('debug.html',
+                            queue=queue)
+
 if __name__ == "__main__":
     app.run()
