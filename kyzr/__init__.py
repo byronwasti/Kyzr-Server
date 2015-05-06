@@ -4,6 +4,7 @@ import json
 # Supported characters for usernames
 import string
 ACC = string.ascii_letters + string.digits + "-_"
+# No-no words!
 CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole','faggot','gay','fag']
 
 # pyMongodb wrapper
@@ -14,22 +15,19 @@ kyzr = dbEditor()
 app = Flask(__name__)
 
 # Main homepage
-# TODO: Add login ability and other inputs
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Page for about_Kyzr
 @app.route('/class_notes')
 def notes():
     return render_template('class_notes.html')
 
 # Map page
-# TODO: Merge with homepage (?)
-#       Call map data from database
-#       Have input from phone ID
-#@app.route('/maps/<coords>')
 @app.route('/maps', methods=['GET', 'POST'])
 def maps():
+    # A bunch of prototypes so things don't break
     coords = []
     center = [0,0]
     zoom = 3
@@ -39,6 +37,7 @@ def maps():
     username = '' 
     num_tran = '' 
 
+    # If a username is entered
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
@@ -49,8 +48,8 @@ def maps():
                     coords = user['locs']
                 else:
                     error = True
-            #else:
-            #    return render_template('error.html')
+
+    # If that username is found in the db
     if coords:
         lats = [ coords[j][0] for j in xrange(len(coords))]
         lons = [ coords[j][1] for j in xrange(len(coords))]
@@ -66,7 +65,6 @@ def maps():
         username = stats['CURRENTOWNER']
         num_tran = stats['NUMTRANSACTION']
 
-
     return render_template('maps.html',
            coords=json.dumps(coords),
            center=json.dumps(center),
@@ -76,12 +74,10 @@ def maps():
            torch_held=username,
            num_tran=num_tran,
            error=error)
-#   return render_template('debug.html', 
-#           coords=json.dumps(coords), 
-#           center=json.dumps(center),
-#           zoom=json.dumps(zoom))
 
-
+# Used by Android app to see if username is
+# taken or not, and whether the username is
+# valid
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():
 
@@ -107,6 +103,7 @@ def verify():
     return "Invalid Search"
 
 
+# Used by Android App
 @app.route('/newuser', methods=['GET', 'POST'])
 def newuser():
 
@@ -124,7 +121,9 @@ def newuser():
             for i in string.punctuation:
                 if i in username:
                     return "False"
-
+            
+            # Double check (?)
+            # TODO: Figure out if we need this line
             user = kyzr.verify_user(pid, username)
 
             if(user is None):
@@ -135,8 +134,7 @@ def newuser():
     return "Invalid Search"
 
 
-# Next two functions are for database 
-# adding/receiving for the android phones
+# Database adding for the android phones
 @app.route('/dbadd', methods=['GET','POST'])
 def dbadd():
 
@@ -165,23 +163,24 @@ def dbadd():
             return "Success"
     return "Request method failed."
 
+
+# Get Dem Stats
 @app.route('/stats', methods=['GET', 'POST'])
 def stats():
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["phone_id"]
-
-            #stats = sc.compute_stats(user)
             stats = kyzr.compute_stats(phone_id)
 
             return json.dumps(stats)
             
     return "Request failed."
 
+
+# TODO: Merge with stats() request
 @app.route('/currtorch', methods=['GET', 'POST'])
 def currtorch():
-
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
@@ -194,6 +193,8 @@ def currtorch():
 
     return "Cannot find username."
 
+
+# General debugging page
 @app.route('/debug')
 def debugging():
     queue = kyzr.get_queue()
