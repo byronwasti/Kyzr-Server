@@ -53,50 +53,48 @@
         geocoder = new google.maps.Geocoder();
         infowindow = new google.maps.InfoWindow({content: 'holding...'});
 
-        getAdresses(markers);
+        for(var i=0; i < markers.length; i++) {
+          google.maps.event.addListener(markers[i], 'mouseover', function() {
+            makeInfoWindow(this);
+          });
+          google.maps.event.addListener(markers[i], 'mouseout', function() {
+            infowindow.close();
+          });
+        }
 
-        function getAdresses(markers) {
-          var addresses = [];
-          for(var i=0; i < markers.length; i++) {
-            geocoder.geocode({'latLng':markers[i].getPosition()}, function (results, status) {
+        function makeInfoWindow(marker) {
+          if(marker.content) {
+            showInfoWindow(marker, marker.content);
+          } else {
+            geocoder.geocode({'latLng':marker.getPosition()}, function (results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                  addresses.push(results[1].formatted_address);
+                  marker.content = results[1].formatted_address;
+                  showInfoWindow(marker, results[1].formatted_address);
                 } else {
                   //alert('No results found');
-                  addresses.push('-1');
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)));
                 }
               } else {
                 if(status=="ZERO_RESULTS") {
                   //alert(status);
-                  addresses.push('-1');
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)))
+                } else if(status=="OVER_QUERY_LIMIT") {
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)));
                 } else {
                   alert('Geocoder failed due to: ' + status);
                 }
-              }
-              if(addresses.length == markers.length) {
-                setContent(addresses)
               }
             });
           }
         }
 
-        function setContent(addresses) {
-          for(var i=0; i < markers.length; i++) {
-            if(addresses[i]=='-1') {
-              markers[i].content = String(markers[i].getPosition().lat().toFixed(3)) + ", " 
-                + String(markers[i].getPosition().lng().toFixed(3));
-            } else {
-              markers[i].content = addresses[i];
-            }
-            google.maps.event.addListener(markers[i], 'mouseover', function() {
-              infowindow.setContent('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+this.content); // super sketch spacing
-              infowindow.open(map, this);
-            });
-            google.maps.event.addListener(markers[i], 'mouseout', function() {
-              infowindow.close();
-            });
-          }
+        function showInfoWindow(marker, content) {
+          infowindow.setContent('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+content);
+          infowindow.open(map, marker);
         }
       }
 
