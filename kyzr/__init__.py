@@ -4,6 +4,7 @@ import json
 # Supported characters for usernames
 import string
 ACC = string.ascii_letters + string.digits + "-_"
+# No-no words!
 CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole','faggot','gay','fag']
 
 # pyMongodb wrapper
@@ -14,31 +15,30 @@ kyzr = dbEditor()
 app = Flask(__name__)
 
 # Main homepage
-# TODO: Add login ability and other inputs
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# Page for about_Kyzr
 @app.route('/class_notes')
 def notes():
     return render_template('class_notes.html')
 
 # Map page
-# TODO: Merge with homepage (?)
-#       Call map data from database
-#       Have input from phone ID
-#@app.route('/maps/<coords>')
 @app.route('/maps', methods=['GET', 'POST'])
 def maps():
+    # A bunch of prototypes so things don't break
     coords = []
     center = [0,0]
     zoom = 3
     torchID = ''
     error = False
     dist = ''
-    username = '' 
+    torcher = '' 
     num_tran = '' 
+    torch = ''
 
+    # If a username is entered
     if(request.method=="POST"):
         if("id" in request.form.keys()):
             torchID = request.form["id"]
@@ -49,8 +49,8 @@ def maps():
                     coords = user['locs']
                 else:
                     error = True
-            #else:
-            #    return render_template('error.html')
+
+    # If that username is found in the db
     if coords:
         lats = [ coords[j][0] for j in xrange(len(coords))]
         lons = [ coords[j][1] for j in xrange(len(coords))]
@@ -63,8 +63,9 @@ def maps():
             zoom = zoom/7.0
         stats = kyzr.compute_stats(torchID)
         dist = stats['DISTANCE']
-        username = stats['CURRENTOWNER']
+        torcher = stats['CURRENTOWNER']
         num_tran = stats['NUMTRANSACTION']
+        torch = kyzr.find_user(stats['TORCH'])['username']
 
 
     return render_template('maps.html',
@@ -73,15 +74,14 @@ def maps():
            zoom=json.dumps(zoom),
            torchID=torchID,
            dist=dist,
-           torch_held=username,
+           torch_holding=torch,
+           torch_held=torcher,
            num_tran=num_tran,
            error=error)
-#   return render_template('debug.html', 
-#           coords=json.dumps(coords), 
-#           center=json.dumps(center),
-#           zoom=json.dumps(zoom))
 
-
+# Used by Android app to see if username is
+# taken or not, and whether the username is
+# valid
 @app.route('/verify', methods=['GET', 'POST'])
 def verify():
 
@@ -97,6 +97,16 @@ def verify():
                 if i in request.form["search_id"]:
                     return "Naughty word!"
 
+            # TODO: Implement length checking Android side
+            # This breaks because on startup Android uses
+            # verify to check if device exists already
+            # and sends in phone ID (which is longer than
+            # 11 characters!)
+            '''
+            if len(request.form["search_id"]) > 11:
+                return "Username is too long!"
+            '''
+
             user = kyzr.find_user(request.form["search_id"])
 
             if(user is None):
@@ -105,6 +115,7 @@ def verify():
     return "Invalid Search"
 
 
+# Used by Android App
 @app.route('/newuser', methods=['GET', 'POST'])
 def newuser():
 
@@ -122,7 +133,9 @@ def newuser():
             for i in string.punctuation:
                 if i in username:
                     return "False"
-
+            
+            # Double check (?)
+            # TODO: Figure out if we need this line
             user = kyzr.verify_user(pid, username)
 
             if(user is None):
@@ -133,8 +146,7 @@ def newuser():
     return "Invalid Search"
 
 
-# Next two functions are for database 
-# adding/receiving for the android phones
+# Database adding for the android phones
 @app.route('/dbadd', methods=['GET','POST'])
 def dbadd():
 
@@ -163,23 +175,24 @@ def dbadd():
             return "Success"
     return "Request method failed."
 
+
+# Get Dem Stats
 @app.route('/stats', methods=['GET', 'POST'])
 def stats():
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
             phone_id = request.form["phone_id"]
-
-            #stats = sc.compute_stats(user)
             stats = kyzr.compute_stats(phone_id)
 
             return json.dumps(stats)
             
     return "Request failed."
 
+
+# TODO: Merge with stats() request
 @app.route('/currtorch', methods=['GET', 'POST'])
 def currtorch():
-
 
     if request.method=="POST":
         if ("phone_id" in request.form.keys()):
@@ -192,6 +205,8 @@ def currtorch():
 
     return "Cannot find username."
 
+
+# General debugging page
 @app.route('/debug')
 def debugging():
     queue = kyzr.get_queue()

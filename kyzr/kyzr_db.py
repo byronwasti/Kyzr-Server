@@ -3,6 +3,9 @@ import json
 from math import radians, cos, sin, asin, sqrt
 import string
 
+
+# Our pyMongo wrapper for this project
+# to make our lives a hell of a lot easier
 class dbEditor:
     def __init__(self):
         self.client = MongoClient()
@@ -43,16 +46,20 @@ class dbEditor:
                 {'$push':{'locs':[lat,lng]}},
                 True)
 
-        comstat_tran = self.find_user('comstat')['total_trans']
+        # Update total number of transactions +1
+        comstat_tran = int(self.find_user('comstat')['total_trans'] + 1)
         self.users.update_one(
                 {'_id':'comstat'},
-                {'$set':{'total_trans':comstat_tran+1}}
+                {'$set':{'total_trans':comstat_tran}}
         )
 
+        # Update the queue for newest transactions
         self.update_queue(pid1, pid2)
 
 
     def add_user(self, pid, username, lat, lng):
+        #TODO: See if we can merge all of these updates
+        #      into one update call
         self.users.update_one(
             {'_id':pid},
             {'$set':{'username':username}},
@@ -67,7 +74,11 @@ class dbEditor:
             {'_id':pid},
             {'$push':{'locs':[lat, lng]}})
 
-
+    
+    # Differs from find_user because it takes in a username
+    # TODO: Merge with add_user because we never actually
+    #       call this function unless we are going to
+    #       add a user
     def verify_user(self,pid, username):
         user = self.users.find_one({'_id':pid})
         if user is None:
@@ -76,6 +87,7 @@ class dbEditor:
         return user
 
 
+    # The one and only...
     def find_user(self,pid):
         user = self.users.find_one({'_id':pid})
         if user is None:
@@ -84,6 +96,7 @@ class dbEditor:
         return user
 
 
+    #TODO: Merge with compute_stats, cus this is a stat
     def find_torch(self,tid):
         user = self.users.find_one({'torch':tid})
         return user
@@ -107,6 +120,8 @@ class dbEditor:
         return stats
 
 
+    # Thanks to Michael Dunn on stackoverflow for
+    # the general idea of this code (it has been modified)
     def compute_distance( self, transactions):
         total_distance = 0.0
         for i in range(len(transactions)-1):
@@ -118,7 +133,8 @@ class dbEditor:
 
         return total_distance
 
-
+    # More Michael Dunn business
+    # <3 you bro!
     def haversine(self, loc1, loc2):
         """
         Calculate the great circle distance between two points 
@@ -138,23 +154,30 @@ class dbEditor:
         return c * rad_earth
 
 
+    # Updates queue for newest transactions
+    # using only 2 updates files
     def update_queue(self, pid1, pid2):
         comstat = self.find_user('comstat')
         cur_num = comstat['#']
+        new_num = int((cur_num+1)%5)
 
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{'#': (cur_num+1)%5 }},
+            {'$set':{'#': new_num }},
             True)
+        USERS = [self.find_user(pid1)['username'], self.find_user(pid2)['username'] ]
+
+        cur_num = str(cur_num)
 
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{ str(cur_num): [pid1, pid2] }},
+            {'$set':{ cur_num:USERS }},
             True)
 
 
+    # Return the current state of the queue
     def get_queue(self):
         comstat = self.find_user('comstat')
         cur_num = comstat['#']
 
-        return [ comstat[str[(i+cur_num)%5] ] for i in xrange(5)] 
+        return [ comstat[str(int((i+cur_num)%5)) ] for i in xrange(5)] 

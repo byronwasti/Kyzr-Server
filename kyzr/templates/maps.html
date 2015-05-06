@@ -10,7 +10,10 @@
     <title>Maps</title>
     <link rel="stylesheet" type="text/css" href="../static/css/maps.css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js"></script>
     <script>
+
+    var infowindow = null;
 
       function initialize() {
         var center_coords = {{center|safe}}
@@ -27,18 +30,72 @@
         var gMapsCoords = [];
         var safeCoords = {{coords|safe}}
         for(i=0; i < safeCoords.length; i++) {
-          gMapsCoords[gMapsCoords.length] = new google.maps.LatLng(safeCoords[i][0], safeCoords[i][1]);
+          gMapsCoords[i] = new google.maps.LatLng(safeCoords[i][0], safeCoords[i][1]);
         }
 
-  var path = new google.maps.Polyline({
-    path: gMapsCoords,
-    geodesic: true,
-    strokeColor: '#F90101',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
-
+        var path = new google.maps.Polyline({
+          path: gMapsCoords,
+          geodesic: true,
+          strokeColor: '#F90101',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
         path.setMap(map);
+
+        var markers = [];
+        for(i=0; i < gMapsCoords.length; i++) {
+          markers[i] = new google.maps.Marker({
+            position: gMapsCoords[i],
+            map: map
+          });
+        }
+
+        geocoder = new google.maps.Geocoder();
+        infowindow = new google.maps.InfoWindow({content: 'holding...'});
+
+        for(var i=0; i < markers.length; i++) {
+          google.maps.event.addListener(markers[i], 'mouseover', function() {
+            makeInfoWindow(this);
+          });
+          google.maps.event.addListener(markers[i], 'mouseout', function() {
+            infowindow.close();
+          });
+        }
+
+        function makeInfoWindow(marker) {
+          if(marker.content) {
+            showInfoWindow(marker, marker.content);
+          } else {
+            geocoder.geocode({'latLng':marker.getPosition()}, function (results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                  marker.content = results[1].formatted_address;
+                  showInfoWindow(marker, results[1].formatted_address);
+                } else {
+                  //alert('No results found');
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)));
+                }
+              } else {
+                if(status=="ZERO_RESULTS") {
+                  //alert(status);
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)))
+                } else if(status=="OVER_QUERY_LIMIT") {
+                  showInfoWindow(marker, String(marker.getPosition().lat().toFixed(3)) + ", " 
+                    + String(marker.getPosition().lng().toFixed(3)));
+                } else {
+                  alert('Geocoder failed due to: ' + status);
+                }
+              }
+            });
+          }
+        }
+
+        function showInfoWindow(marker, content) {
+          infowindow.setContent('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+content);
+          infowindow.open(map, marker);
+        }
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
@@ -56,13 +113,6 @@
           <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID" autofocus>
         {% else %}
           <input type="text" name="id" value="{{torchID}}" placeholder="Enter a username or ID">
-          <!--<br>
-          <p>Distance Traveled : {{dist|safe}}</p>
-          <br>
-          <p>Torch Holding : {{torch_held|safe}}</p>
-          <br>
-          <p>Number of Transactions : {{num_tran|safe}}</p>
-          <br>-->
         {% endif %}
       {% endif %}
       <button type="submit">Submit</button>
@@ -70,6 +120,8 @@
     {% if not error and torchID != '' %}
     <div class="statistics">
       <p><img src="../static/images/dist.svg">Distance Traveled : {{dist}}</p>
+      <hr>
+      <p><img src="../static/images/favicon.svg">Torch Holding : {{torch_holding}}</p>
       <hr>
       <p><img src="../static/images/favicon.svg">Torch Held By : {{torch_held}}</p>
       <hr>
