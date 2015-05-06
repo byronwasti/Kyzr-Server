@@ -34,7 +34,7 @@ def maps():
     torchID = ''
     error = False
     dist = ''
-    username = '' 
+    torcher = '' 
     num_tran = '' 
     torch = ''
 
