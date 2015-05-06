@@ -36,6 +36,7 @@ def maps():
     dist = ''
     username = '' 
     num_tran = '' 
+    torch = ''
 
     # If a username is entered
     if(request.method=="POST"):
