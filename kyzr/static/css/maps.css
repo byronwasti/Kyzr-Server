@@ -104,7 +104,6 @@
   background-color:white;
   color:black;
   font-size:13px;
-  font-weight: thin;
   border-radius: 2px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   display:block;
@@ -136,6 +135,11 @@
   top:3px;
   margin-left:6px;
   margin-right:11px;
+}
+
+/* sketchily removes x on infowindow */
+.gm-style-iw + div {
+  display: none;
 }
 
 * {
