@@ -128,5 +128,14 @@
       <p><img src="../static/images/swap.svg">Number of Transactions : {{num_tran|safe}}</p>
     </div>
     {% endif %}
+    <div id="queue">
+      <h1>Recent Transactions</h2>
+      {% for pair in queue %}
+      <div class="leftuser">{{pair[0]}}</div>
+      <img src="../static/images/swap.svg">
+      <div class="rightuser">{{pair[1]}}</div>
+      <br>
+      {% endfor %}
+    </div>
   </body>
 </html>
