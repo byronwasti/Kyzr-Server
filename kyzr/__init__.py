@@ -4,7 +4,7 @@ import json
 # Supported characters for usernames
 import string
 ACC = string.ascii_letters + string.digits + "-_"
-CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole']
+CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole','faggot','gay','fag']
 
 # pyMongodb wrapper
 from kyzr_db import dbEditor
