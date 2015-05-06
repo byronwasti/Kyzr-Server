@@ -65,7 +65,7 @@ def maps():
         dist = stats['DISTANCE']
         torcher = stats['CURRENTOWNER']
         num_tran = stats['NUMTRANSACTION']
-        torch = stats['TORCH']
+        torch = kyzr.find_user(stats['TORCH'])['username']
 
 
     return render_template('maps.html',
