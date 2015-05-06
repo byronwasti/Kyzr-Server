@@ -157,4 +157,4 @@ class dbEditor:
         comstat = self.find_user('comstat')
         cur_num = comstat['#']
 
-        return [ comstat[str((i+cur_num)%5) ] for i in xrange(5)] 
+        return [ comstat[str(int((i+cur_num)%5)) ] for i in xrange(5)] 
