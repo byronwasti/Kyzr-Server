@@ -144,7 +144,7 @@ class dbEditor:
 
         self.users.update_one(
             {'_id':'comstat'},
-            {'$set':{'#': (cur_num+2)%5 }},
+            {'$set':{'#': (cur_num+1)%5 }},
             True)
         USERS = pid1+','+pid2
         self.users.update_one(
