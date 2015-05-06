@@ -92,6 +92,12 @@ def verify():
             for i in CURSE_WORDS:
                 if i in request.form["search_id"]:
                     return "Naughty word!"
+
+            # TODO: Implement length checking Android side
+            # This breaks because on startup Android uses
+            # verify to check if device exists already
+            # and sends in phone ID (which is longer than
+            # 11 characters!)
             '''
             if len(request.form["search_id"]) > 11:
                 return "Username is too long!"
