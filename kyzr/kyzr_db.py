@@ -147,7 +147,7 @@ class dbEditor:
             {'_id':'comstat'},
             {'$set':{'#': new_num }},
             True)
-        USERS = self.find_user(pid1)['username'] +','+self.find_user(pid2)['username']
+        USERS = self.find_user(pid1)['username'] +', '+self.find_user(pid2)['username']
 
         cur_num = str(cur_num)
 
