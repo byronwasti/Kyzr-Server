@@ -96,6 +96,8 @@ def verify():
             for i in CURSE_WORDS:
                 if i in request.form["search_id"]:
                     return "Naughty word!"
+            if len(request.form["search_id"]) > 11:
+                return "Username is too long!"
 
             user = kyzr.find_user(request.form["search_id"])
 
