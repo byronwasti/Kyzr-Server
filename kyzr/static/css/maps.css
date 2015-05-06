@@ -138,6 +138,11 @@
   margin-right:11px;
 }
 
+/* sketchily removes x on infowindow */
+.gm-style-iw + div {
+  display: none;
+}
+
 * {
   margin: 0;
   padding: 0;
