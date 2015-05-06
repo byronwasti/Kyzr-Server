@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request
 import json
+
+# Supported characters for usernames
 import string
+ACC = string.ascii_letters + string.digits + "-_"
+CURSE_WORDS = ['fuck','bitch','cunt','shit','nigger','asshole','faggot','gay','fag']
 
 # pyMongodb wrapper
 from kyzr_db import dbEditor
@@ -83,11 +87,15 @@ def verify():
 
     if request.method=="POST":
         if ("search_id" in request.form.keys()):
-            if( ' ' in request.form["search_id"]):
-                return "Username cannot contain spaces."
 
-            if( '\n' in request.form["search_id"]):
-                return "Invalid character."
+            # Check to make sure all characters in requested
+            # username check are allowed
+            for i in request.form["search_id"]:
+                if i not in ACC:
+                    return "Not valid characters"
+            for i in CURSE_WORDS:
+                if i in request.form["search_id"]:
+                    return "Naughty word!"
 
             user = kyzr.find_user(request.form["search_id"])
 
